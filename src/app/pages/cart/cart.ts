@@ -2,7 +2,7 @@ import { Component, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { QuantityStepper } from '../../shared/components/quantity-stepper/quantity-stepper';
-import { CartService } from '../../shared/services/cart';
+import { CartService, CartItem } from '../../shared/services/cart';
 import { AuthService } from '../../core/auth/auth';
 import { ToastService } from '../../shared/services/toast';
 
@@ -21,4 +21,19 @@ export class Cart {
   readonly total = computed(() => this.cart.total());
 
   constructor(public cart: CartService, public auth: AuthService, public toast: ToastService) {}
+
+  onQtyChange(it: CartItem, nextQty: number) {
+    if (nextQty === 0) {
+      this.cart.remove(it.product.id);
+      return;
+    }
+
+    // Clamp is already handled by CartService, but we keep UX toast here.
+    this.cart.setQty(it.product.id, nextQty);
+
+    // If user reached max stock, show toast (requirement: toast + disable)
+    if (nextQty >= it.product.stock) {
+      this.toast.info('Max stock reached', `Only ${it.product.stock} available for "${it.product.name}".`);
+    }
+  }
 }

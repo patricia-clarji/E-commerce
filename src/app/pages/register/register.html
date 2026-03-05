@@ -3,7 +3,7 @@
         <div class="title">Create account</div>
         <div class="sub">Join Nexora and start shopping.</div>
 
-        <!-- ✅ IMPORTANT: [formGroup] + (ngSubmit) -->
+        <!-- ✅ MUST have [formGroup] -->
         <form class="form" [formGroup]="form" (ngSubmit)="submit()">
             <div class="grid2">
                 <div>
@@ -50,8 +50,8 @@
 
             <div class="err" *ngIf="error">{{ error }}</div>
 
-            <button class="btn-primary" type="submit" [disabled]="loading">
-                {{ loading ? 'Creating…' : 'Create account' }}
+            <button class="btn-primary" type="submit" [disabled]="loading()">
+                {{ loading() ? 'Creating...' : 'Create account' }}
             </button>
 
             <div class="bottom">

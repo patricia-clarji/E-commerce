@@ -7,24 +7,16 @@ import { User } from '../../shared/interfaces/user';
 
 export type AuthResponse = { token: string; user: User };
 export type CheckResponse = { valid: boolean };
-
-export type LoginPayload = {
-  email: string;
-  password: string;
-};
+export type LoginPayload = { email: string; password: string };
 
 @Injectable({ providedIn: 'root' })
 export class AuthApi {
   private readonly http = inject(HttpClient);
 
-  /**
-   * Your swagger shows server base path "/api".
-   * In Angular env, set `apiUrl` to '/api' (proxy) or 'http://localhost:XXXX/api'
-   */
-  private readonly base = environment.apiUrl ?? '/api';
+  // your env already includes /api at the end
+  private readonly base = environment.apiBaseUrl ?? '/api';
 
   async register(formData: FormData): Promise<AuthResponse> {
-    // multipart/form-data, browser sets boundary automatically
     return await firstValueFrom(
       this.http.post<AuthResponse>(`${this.base}/auth/register`, formData)
     ).catch(this.handle);
@@ -49,7 +41,6 @@ export class AuthApi {
   }
 
   async updateMe(formData: FormData): Promise<User> {
-    // swagger: PATCH /user multipart/form-data
     return await firstValueFrom(this.http.patch<User>(`${this.base}/user`, formData)).catch(
       this.handle
     );
@@ -62,13 +53,11 @@ export class AuthApi {
   private handle(err: unknown): never {
     const e = err as HttpErrorResponse;
 
-    // swagger error shape:
-    // { message: string, errors: string[], error: string }
-    const body: any = e?.error ?? {};
+    const body: any = (e as any)?.error ?? {};
     const message =
       body?.message ||
       (typeof body === 'string' ? body : '') ||
-      e?.message ||
+      (e as any)?.message ||
       'Request failed';
 
     const errors: string[] = Array.isArray(body?.errors) ? body.errors : [];

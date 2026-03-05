@@ -1,22 +1,31 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductCard } from '../components/product-card/product-card';
-import { CartService } from '../services/cart';
-import { ToastService } from '../services/toast';
-import { AuthService } from '../../core/auth/auth';
+import { TestBed } from '@angular/core/testing';
+import { ProductsService } from './products';
 
-describe('ProductCard', () => {
-  let fixture: ComponentFixture<ProductCard>;
+describe('ProductsService', () => {
+  let service: ProductsService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ProductCard],
-      providers: [CartService, ToastService, AuthService],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(ProductCard);
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(ProductsService);
   });
 
-  it('creates', () => {
-    expect(fixture.componentInstance).toBeTruthy();
+  it('creates a product and it appears in list', () => {
+    const before = service.items().length;
+
+    service.addProduct({
+      name: 'Test Item',
+      brand: 'Test Brand',
+      category: 'Tech', 
+      price: 10,
+      stock: 5,
+      images: ['https://picsum.photos/seed/test/600/600'],
+      shortDescription: 'Short test description',
+      description: 'Longer test description that is valid',
+      rating: 4.5,
+      reviewsCount: 10,
+    });
+
+    const after = service.items().length;
+    expect(after).toBe(before + 1);
   });
 });

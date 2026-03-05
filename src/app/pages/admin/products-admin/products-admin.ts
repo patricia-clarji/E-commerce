@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ProductsService } from '../../../shared/services/products';
-import { Product, ProductBadge, ProductCategory } from '../../../shared/interfaces/product';
 import { ToastService } from '../../../shared/services/toast';
+import { Product, ProductCategory } from '../../../shared/interfaces/product';
 
-type Mode = 'create' | 'edit';
+const CATEGORIES: ProductCategory[] = ['Accessories', 'Home', 'Tech', 'Fashion'];
 
 @Component({
   selector: 'app-products-admin',
@@ -17,80 +17,57 @@ type Mode = 'create' | 'edit';
 })
 export class ProductsAdmin {
   private readonly fb = inject(FormBuilder);
-  public products = inject(ProductsService);
+  private readonly products = inject(ProductsService);
   private readonly toast = inject(ToastService);
 
-  readonly items = computed(() => this.products.items());
+  readonly categories = CATEGORIES;
 
-  readonly modalOpen = signal(false);
-  readonly mode = signal<Mode>('create');
+  readonly items = computed(() => this.products.items());
   readonly editingId = signal<string | null>(null);
 
-  readonly categories: ProductCategory[] = ['Accessories', 'Home', 'Tech', 'Fashion'];
-  readonly badges: ProductBadge[] = ['New', 'Best Seller', 'Limited', 'Eco'];
-
   readonly form = this.fb.nonNullable.group({
-    name: ['', [Validators.required, Validators.minLength(3)]],
+    name: ['', [Validators.required, Validators.minLength(2)]],
     brand: ['', [Validators.required, Validators.minLength(2)]],
     category: ['Tech' as ProductCategory, [Validators.required]],
-    price: [0, [Validators.required, Validators.min(0.01)]],
-    oldPrice: [0],
+    price: [0, [Validators.required, Validators.min(0)]],
+    stock: [0, [Validators.required, Validators.min(0)]],
+    images: ['', [Validators.required]], // comma separated
+    shortDescription: ['', [Validators.required, Validators.minLength(10)]],
+    description: ['', [Validators.required, Validators.minLength(20)]],
     rating: [4.5],
     reviewsCount: [120],
-    stock: [10, [Validators.required, Validators.min(0)]],
-    badge: ['New' as ProductBadge],
-    image: ['', [Validators.required]],
-    shortDescription: ['', [Validators.required, Validators.minLength(8)]],
-    description: ['', [Validators.required, Validators.minLength(12)]],
-    status: ['In Stock'],
   });
 
-  openCreate() {
-    this.mode.set('create');
+  startCreate() {
     this.editingId.set(null);
     this.form.reset({
       name: '',
       brand: '',
       category: 'Tech',
       price: 0,
-      oldPrice: 0,
-      rating: 4.6,
-      reviewsCount: 80,
-      stock: 10,
-      badge: 'New',
-      image: '',
+      stock: 0,
+      images: '',
       shortDescription: '',
       description: '',
-      status: 'In Stock',
+      rating: 4.5,
+      reviewsCount: 120,
     });
-    this.modalOpen.set(true);
   }
 
-  openEdit(p: Product) {
-    this.mode.set('edit');
+  startEdit(p: Product) {
     this.editingId.set(p.id);
-
-    this.form.reset({
+    this.form.setValue({
       name: p.name,
       brand: p.brand,
       category: p.category,
       price: p.price,
-      oldPrice: p.oldPrice ?? 0,
-      rating: p.rating ?? 4.5,
-      reviewsCount: p.reviewsCount ?? 0,
       stock: p.stock,
-      badge: (p.badge ?? 'New') as ProductBadge,
-      image: p.images?.[0] ?? '',
+      images: (p.images ?? []).join(','),
       shortDescription: p.shortDescription,
       description: p.description,
-      status: p.status ?? 'In Stock',
+      rating: p.rating ?? 4.5,
+      reviewsCount: p.reviewsCount ?? 0,
     });
-
-    this.modalOpen.set(true);
-  }
-
-  close() {
-    this.modalOpen.set(false);
   }
 
   save() {
@@ -102,48 +79,40 @@ export class ProductsAdmin {
     const draft = {
       name: v.name.trim(),
       brand: v.brand.trim(),
-      category: v.category,
+      category: v.category, // already ProductCategory
       price: Number(v.price),
-      oldPrice: v.oldPrice ? Number(v.oldPrice) : undefined,
-      rating: Number(v.rating),
-      reviewsCount: Number(v.reviewsCount),
       stock: Number(v.stock),
-      badge: v.badge,
-      images: [v.image.trim()],
+      images: v.images
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean),
       shortDescription: v.shortDescription.trim(),
       description: v.description.trim(),
-      specs: [],
-      features: [],
-      status: v.stock <= 0 ? 'Out of Stock' : v.stock < 15 ? 'Low Stock' : 'In Stock',
-      colorOptions: ['Black', 'Stone', 'Indigo'],
+      rating: Number(v.rating ?? 0),
+      reviewsCount: Number(v.reviewsCount ?? 0),
     };
 
-    if (this.mode() === 'create') {
-      const created = this.products.addProduct(draft);
-      this.toast.success('Product created', created.name);
-      this.close();
+    const id = this.editingId();
+
+    if (!id) {
+      this.products.addProduct(draft);
+      this.toast.success('Product created');
+      this.startCreate();
       return;
     }
 
-    const id = this.editingId();
-    if (!id) return;
-
     const updated = this.products.updateProduct(id, draft);
-    if (updated) this.toast.success('Product updated', updated.name);
-    this.close();
+    if (updated) {
+      this.toast.success('Product updated');
+      this.editingId.set(null);
+    } else {
+      this.toast.error('Update failed');
+    }
   }
 
   remove(id: string) {
     const ok = this.products.deleteProduct(id);
     if (ok) this.toast.success('Product deleted');
-  }
-
-  err(name: keyof typeof this.form.controls): string {
-    const c = this.form.controls[name];
-    if (!c.touched || !c.errors) return '';
-    if (c.errors['required']) return 'Required';
-    if (c.errors['minlength']) return `Min ${c.errors['minlength'].requiredLength} chars`;
-    if (c.errors['min']) return `Min value is ${c.errors['min'].min}`;
-    return 'Invalid';
+    else this.toast.error('Delete failed');
   }
 }

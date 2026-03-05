@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -21,7 +21,7 @@ export class Register {
 
   file: File | null = null;
   error = '';
-  loading = false;
+  readonly loading = signal(false);
 
   readonly form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -40,7 +40,7 @@ export class Register {
   async submit() {
     this.error = '';
     this.form.markAllAsTouched();
-    if (this.form.invalid || this.loading) return;
+    if (this.form.invalid || this.loading()) return;
 
     const v = this.form.getRawValue();
     const formData = new FormData();
@@ -50,26 +50,23 @@ export class Register {
     formData.append('lastName', v.lastName.trim());
     formData.append('username', v.username.trim());
     formData.append('password', v.password);
-
     if (v.dateOfBirth) formData.append('dateOfBirth', v.dateOfBirth);
+    // role optional, default backend usually user
+    // formData.append('role','user');
+
     if (this.file) formData.append('file', this.file);
 
+    this.loading.set(true);
     try {
-      this.loading = true;
-
-      // ✅ register should return token+user per swagger
       await this.auth.register(formData);
-
       this.toast.success('Account created');
-
-      // ✅ after register: route based on role
-      if (this.auth.isAdmin()) await this.router.navigate(['/admin']);
-      else await this.router.navigate(['/']);
+      // ✅ redirect behavior
+      this.router.navigate(['/']);
     } catch (e: any) {
       this.error = e?.message ?? 'Registration failed';
       this.toast.error('Registration failed', this.error);
     } finally {
-      this.loading = false;
+      this.loading.set(false);
     }
   }
 }

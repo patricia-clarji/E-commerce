@@ -23,17 +23,15 @@
                     <div class="name">{{ it.product.name }}</div>
                     <div class="muted">{{ it.product.brand }} • {{
                         it.product.category }}</div>
-                    <div class="price">
-                        ${{ it.product.price | number : '1.2-2' }}
-                    </div>
+                    <div class="price">${{ it.product.price | number : '1.2-2'
+                        }}</div>
                 </div>
 
-                <!-- lightweight stepper for now (we’ll replace with shared QuantityStepper next) -->
                 <app-quantity-stepper
                     [value]="it.qty"
                     [min]="0"
                     [max]="it.product.stock"
-                    (valueChange)="($event === 0 ? cart.remove(it.product.id) : cart.setQty(it.product.id, $event))">
+                    (valueChange)="onQtyChange(it, $event)">
                 </app-quantity-stepper>
 
                 <div class="lineTotal">

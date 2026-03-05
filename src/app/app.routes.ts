@@ -17,6 +17,9 @@ export const routes: Routes = [
             { path: 'products/:id', loadComponent: () => import('./pages/product-detail/product-detail').then((m) => m.ProductDetail) },
             { path: 'cart', loadComponent: () => import('./pages/cart/cart').then((m) => m.Cart) },
 
+            // Not found
+            { path: 'not-found', loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFound) },
+
             // Guest-only
             { path: 'login', canActivate: [guestGuard], loadComponent: () => import('./pages/login/login').then((m) => m.Login) },
             { path: 'register', canActivate: [guestGuard], loadComponent: () => import('./pages/register/register').then((m) => m.Register) },
@@ -28,7 +31,7 @@ export const routes: Routes = [
         ],
     },
 
-    // ✅ Admin LAZY
+    // Admin LAZY
     {
         path: 'admin',
         canActivate: [adminGuard],
@@ -36,5 +39,6 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/admin/admin.routes').then((m) => m.adminRoutes),
     },
 
-    { path: '**', redirectTo: '' },
+    // Wildcard -> not-found
+    { path: '**', redirectTo: 'not-found' },
 ];

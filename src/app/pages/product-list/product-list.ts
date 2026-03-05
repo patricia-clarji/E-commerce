@@ -1,8 +1,6 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 import { ProductsService } from '../../shared/services/products';
 import { ProductCard } from '../../shared/components/product-card/product-card';
@@ -10,37 +8,52 @@ import { ProductCard } from '../../shared/components/product-card/product-card';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, ProductCard],
+  imports: [CommonModule, ProductCard],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss',
 })
 export class ProductList {
-  private readonly ps = inject(ProductsService);
   private readonly route = inject(ActivatedRoute);
+  private readonly productsService = inject(ProductsService);
 
-  // query param q
-  private readonly q$ = this.route.queryParamMap.pipe(map((m) => (m.get('q') ?? '').trim().toLowerCase()));
-  readonly q = toSignal(this.q$, { initialValue: '' });
-
-  // category filter
+  readonly q = signal('');
   readonly category = signal<string>('All');
 
-  // products list
-  readonly items = computed(() => {
-    const q = this.q();
-    const cat = this.category();
-    return this.ps.items().filter((p) => {
-      const inCat = cat === 'All' ? true : p.category === cat;
-      const inQ =
+  readonly products = computed(() => this.productsService.items());
+
+  readonly categories = computed(() => {
+    const set = new Set<string>();
+    for (const p of this.products()) set.add(p.category);
+    return ['All', ...Array.from(set).sort()];
+  });
+
+  readonly filtered = computed(() => {
+    const q = this.q().trim().toLowerCase();
+    const c = this.category();
+
+    return this.products().filter((p) => {
+      const matchesQ =
         !q ||
         p.name.toLowerCase().includes(q) ||
         p.brand.toLowerCase().includes(q) ||
-        p.shortDescription.toLowerCase().includes(q);
-      return inCat && inQ;
+        p.category.toLowerCase().includes(q);
+
+      const matchesC = c === 'All' || p.category === c;
+
+      return matchesQ && matchesC;
     });
   });
 
-  setCategory(cat: string) {
-    this.category.set(cat);
+  constructor() {
+    // ✅ sync query param ?q=...
+    effect(() => {
+      const qp = this.route.snapshot.queryParamMap.get('q') ?? '';
+      this.q.set(qp);
+    });
+
+    // ✅ also update when navigation changes (real-time)
+    this.route.queryParamMap.subscribe((m) => {
+      this.q.set(m.get('q') ?? '');
+    });
   }
 }

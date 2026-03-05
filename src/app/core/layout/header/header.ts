@@ -1,26 +1,73 @@
-import { Injectable, effect, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter } from 'rxjs';
 
-const THEME_KEY = 'nx_theme';
+import { AuthService } from '../../auth/auth';
+import { CartService } from '../../../shared/services/cart';
+import { ThemeService } from '../theme.service';
+import { ClickOutsideDirective } from '../../../shared/directives/click-outside';
+import { PLATFORM_ID } from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
-export class ThemeService {
-  readonly mode = signal<'light' | 'dark'>(this.load());
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive, ClickOutsideDirective],
+  templateUrl: './header.html',
+  styleUrl: './header.scss',
+})
+export class Header {
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
+
+  readonly auth = inject(AuthService);
+  readonly cart = inject(CartService);
+  readonly theme = inject(ThemeService);
+
+  readonly menuOpen = signal(false);
+  readonly scrolled = signal(false);
+
+  /** Search input */
+  readonly search = signal('');
+
+  /** Cart badge */
+  readonly cartCount = computed(() => this.cart.count());
 
   constructor() {
-    // Apply immediately + persist
-    effect(() => {
-      const m = this.mode();
-      document.documentElement.classList.toggle('dark', m === 'dark');
-      localStorage.setItem(THEME_KEY, m);
-    });
+    // ✅ Sticky header effect (browser only)
+    if (this.isBrowser) {
+      const onScroll = () => this.scrolled.set((window.scrollY ?? 0) > 8);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      this.destroyRef.onDestroy(() => window.removeEventListener('scroll', onScroll));
+    }
+
+    // ✅ Close menu on navigation
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe(() => this.menuOpen.set(false));
   }
 
-  toggle(): void {
-    this.mode.set(this.mode() === 'dark' ? 'light' : 'dark');
+  toggleMenu() {
+    this.menuOpen.set(!this.menuOpen());
   }
 
-  private load(): 'light' | 'dark' {
-    const v = localStorage.getItem(THEME_KEY);
-    return v === 'dark' ? 'dark' : 'light';
+  closeMenu() {
+    this.menuOpen.set(false);
+  }
+
+  logout() {
+    this.closeMenu();
+    this.auth.logout(true);
+  }
+
+  submitSearch() {
+    const q = this.search().trim();
+    // ✅ keep text, just navigate with query param
+    this.router.navigate(['/products'], { queryParams: q ? { q } : {} });
+    this.closeMenu();
   }
 }

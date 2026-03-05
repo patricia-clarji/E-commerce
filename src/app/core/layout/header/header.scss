@@ -48,6 +48,7 @@
     border: 1px solid rgba(15, 23, 42, 0.12);
     background: rgba(255, 255, 255, 0.60);
     font-weight: 900;
+    cursor: pointer;
 }
 
 .dark .hamb {
@@ -62,12 +63,47 @@
     }
 }
 
+.nx-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nx-brand__mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--nx-brand-1), var(--nx-brand-3));
+    box-shadow: 0 14px 30px rgba(236, 72, 153, 0.18);
+}
+
+.nx-brand__name {
+    font-weight: 950;
+    letter-spacing: -0.4px;
+    line-height: 1;
+}
+
+.nx-brand__tag {
+    font-weight: 850;
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 2px;
+}
+
 .search {
     display: none;
     align-items: center;
     gap: 8px;
     flex: 1;
     max-width: 520px;
+}
+
+@media (min-width: 900px) {
+    .search {
+        display: inline-flex;
+    }
 }
 
 .search__input {
@@ -94,6 +130,7 @@
     border: 1px solid rgba(15, 23, 42, 0.12);
     background: rgba(15, 23, 42, 0.04);
     font-weight: 950;
+    cursor: pointer;
 }
 
 .dark .search__btn {
@@ -102,10 +139,44 @@
     color: rgba(255, 255, 255, 0.92);
 }
 
+.nx-nav {
+    display: none;
+    align-items: center;
+    gap: 10px;
+}
+
 @media (min-width: 900px) {
-    .search {
+    .nx-nav {
         display: inline-flex;
     }
+}
+
+.nx-nav__link {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 900;
+    padding: 10px 12px;
+    border-radius: 14px;
+    transition: background 0.15s ease;
+}
+
+.nx-nav__link:hover {
+    background: rgba(15, 23, 42, 0.06);
+}
+
+.dark .nx-nav__link:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.nx-nav__link.is-active {
+    background: rgba(15, 23, 42, 0.10);
+}
+
+.dark .nx-nav__link.is-active {
+    background: rgba(255, 255, 255, 0.12);
 }
 
 .cartIcon {
@@ -167,6 +238,7 @@
     border: 1px solid rgba(15, 23, 42, 0.10);
     background: rgba(15, 23, 42, 0.04);
     font-weight: 900;
+    cursor: pointer;
 }
 
 .dark .mobileMenu a,
@@ -174,6 +246,12 @@
     border-color: rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.08);
     color: rgba(255, 255, 255, 0.92);
+}
+
+.mSearch {
+    display: flex;
+    gap: 8px;
+    padding: 6px;
 }
 
 .pill {
