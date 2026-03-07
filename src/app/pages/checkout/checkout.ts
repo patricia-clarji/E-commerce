@@ -8,6 +8,7 @@ import { ToastService } from '../../shared/services/toast';
 import { OrdersService } from '../../shared/services/order';
 import { AuthService } from '../../core/auth/auth';
 import { Order } from '../../shared/interfaces/order';
+import { ProductsService } from '../../shared/services/products';
 
 @Component({
   selector: 'app-checkout',
@@ -22,6 +23,7 @@ export class Checkout {
   private readonly toast = inject(ToastService);
   private readonly orders = inject(OrdersService);
   private readonly auth = inject(AuthService);
+  private readonly products = inject(ProductsService);
 
   public cart = inject(CartService);
 
@@ -50,6 +52,7 @@ export class Checkout {
 
     const user = this.auth.user();
     const v = this.form.getRawValue();
+    const cartItems = this.items();
 
     const order: Order = {
       id: this.newOrderId(),
@@ -57,7 +60,7 @@ export class Checkout {
       email: user?.email ?? 'unknown@nexora.local',
       date: new Date().toISOString(),
       status: 'Paid',
-      items: this.items().map((it) => ({
+      items: cartItems.map((it) => ({
         productId: it.product.id,
         productName: it.product.name,
         productImage: it.product.images[0] ?? '',
@@ -75,8 +78,12 @@ export class Checkout {
     };
 
     this.orders.addOrder(order);
-    this.cart.clear();
 
+    for (const item of cartItems) {
+      this.products.decreaseStock(item.product.id, item.qty);
+    }
+
+    this.cart.clear();
     this.toast.success('Order placed', 'Thank you for your purchase');
     this.router.navigate(['/order-success']);
   }

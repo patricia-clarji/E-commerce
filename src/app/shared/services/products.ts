@@ -13,7 +13,6 @@ export class ProductsService {
 
   readonly items = computed(() => this._items());
 
-  // Used by pages
   products() {
     return this.items();
   }
@@ -78,7 +77,31 @@ export class ProductsService {
     return removed;
   }
 
-  // ---- storage ----
+  decreaseStock(productId: string, qty: number): void {
+    if (qty <= 0) return;
+
+    this._items.update((arr) => {
+      const next = arr.map((p) => {
+        if (p.id !== productId) return p;
+
+        const nextStock = Math.max(0, p.stock - qty);
+
+        return {
+          ...p,
+          stock: nextStock,
+          status:
+            nextStock === 0
+              ? 'Out of Stock'
+              : nextStock <= 10
+              ? 'Low Stock'
+              : 'In Stock',
+        };
+      });
+
+      this.persist(next);
+      return next;
+    });
+  }
 
   private loadInitial(): Product[] {
     const fromLs = this.loadFromStorage();
