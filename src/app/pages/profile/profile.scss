@@ -14,12 +14,8 @@
 .sub {
     margin-top: 4px;
     font-weight: 800;
-    color: rgba(11, 18, 32, 0.62);
+    color: var(--nx-muted);
     font-size: 13px;
-}
-
-.dark .sub {
-    color: rgba(255, 255, 255, 0.65);
 }
 
 .me {
@@ -36,7 +32,7 @@
     height: 54px;
     border-radius: 18px;
     object-fit: cover;
-    border: 1px solid rgba(15, 23, 42, 0.12);
+    border: 1px solid var(--nx-border);
 }
 
 .strong {
@@ -46,12 +42,8 @@
 .muted {
     margin-top: 2px;
     font-weight: 800;
-    color: rgba(11, 18, 32, 0.62);
+    color: var(--nx-muted);
     font-size: 12px;
-}
-
-.dark .muted {
-    color: rgba(255, 255, 255, 0.65);
 }
 
 .form {
@@ -77,4 +69,9 @@
     font-size: 12px;
     font-weight: 900;
     color: rgba(239, 68, 68, 0.92);
+}
+
+.btn-primary {
+    width: 100%;
+    margin-top: 8px;
 }

@@ -6,7 +6,7 @@ import { filter } from 'rxjs';
 
 import { AuthService } from '../../auth/auth';
 import { CartService } from '../../../shared/services/cart';
-import { ThemeService } from '../theme.service';
+import { ThemeService } from '../../../shared/services/theme.service';
 import { ClickOutsideDirective } from '../../../shared/directives/click-outside';
 import { PLATFORM_ID } from '@angular/core';
 

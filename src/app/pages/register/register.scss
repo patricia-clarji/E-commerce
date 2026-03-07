@@ -14,12 +14,8 @@
 .sub {
     margin-top: 4px;
     font-weight: 800;
-    color: rgba(11, 18, 32, 0.62);
+    color: var(--nx-muted);
     font-size: 13px;
-}
-
-.dark .sub {
-    color: rgba(255, 255, 255, 0.65);
 }
 
 .form {
@@ -54,20 +50,14 @@
     align-items: center;
     justify-content: center;
     font-weight: 900;
+    flex-wrap: wrap;
 }
 
 .muted {
-    color: rgba(11, 18, 32, 0.60);
+    color: var(--nx-muted);
 }
 
-.dark .muted {
-    color: rgba(255, 255, 255, 0.65);
-}
-
-.input {
-    padding: 12px 16px;
-    width:250px;
-    border-radius: 12px;
-    border: 1px solid rgba(11, 18, 32, 0.20);
-    background: rgba(177, 220, 234, 0.2);
+.btn-primary {
+    width: 100%;
+    margin-top: 8px;
 }

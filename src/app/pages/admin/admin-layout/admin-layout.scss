@@ -18,13 +18,9 @@
 
 .admin-sub {
     margin-top: 4px;
-    color: rgba(11, 18, 32, 0.62);
+    color: var(--nx-muted);
     font-weight: 750;
     font-size: 14px;
-}
-
-.dark .admin-sub {
-    color: rgba(255, 255, 255, 0.65);
 }
 
 .admin-actions {
@@ -50,11 +46,7 @@
     margin-top: 4px;
     font-size: 12px;
     font-weight: 700;
-    color: rgba(11, 18, 32, 0.62);
-}
-
-.dark .admin-user__meta {
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--nx-muted);
 }
 
 .admin-tabs {
@@ -62,39 +54,36 @@
     gap: 8px;
     flex-wrap: wrap;
     margin-bottom: 16px;
-
-    a {
-        padding: 10px 12px;
-        border-radius: 14px;
-        border: 1px solid rgba(15, 23, 42, 0.12);
-        background: rgba(255, 255, 255, 0.55);
-        font-weight: 900;
-        color: rgba(11, 18, 32, 0.78);
-        transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
-    }
-
-    a:hover {
-        transform: translateY(-1px);
-        background: rgba(79, 70, 229, 0.06);
-        border-color: rgba(79, 70, 229, 0.18);
-    }
-
-    a.is-active {
-        background: rgba(79, 70, 229, 0.10);
-        border-color: rgba(79, 70, 229, 0.25);
-        color: rgba(11, 18, 32, 0.92);
-    }
 }
 
-.dark .admin-tabs a {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.10);
-    color: rgba(255, 255, 255, 0.82);
+.admin-tabs a {
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid var(--nx-border);
+    background: var(--nx-card-soft);
+    font-weight: 900;
+    color: var(--nx-text-soft);
+    transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+.admin-tabs a:hover {
+    transform: translateY(-1px);
+    background: rgba(79, 70, 229, 0.06);
+    border-color: rgba(79, 70, 229, 0.18);
+}
+
+.admin-tabs a.is-active {
+    background: rgba(79, 70, 229, 0.10);
+    border-color: rgba(79, 70, 229, 0.25);
+    color: var(--nx-text);
 }
 
 .admin-body {
     padding-top: 4px;
 }
+
+
+
 
 @media (max-width: 760px) {
     .admin-top {

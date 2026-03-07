@@ -5,23 +5,22 @@
     background: rgba(255, 255, 255, 0.72);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(15, 23, 42, 0.10);
-    transition: background 0.18s ease, box-shadow 0.18s ease;
+    border-bottom: 1px solid var(--nx-border);
+    transition: background 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
 .dark .nx-header {
-    background: rgba(16, 16, 34, 0.55);
-    border-bottom-color: rgba(255, 255, 255, 0.10);
+    background: rgba(11, 18, 32, 0.72);
 }
 
 .nx-header.is-scrolled {
-    background: rgba(255, 255, 255, 0.62);
+    background: rgba(255, 255, 255, 0.64);
     box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
 }
 
 .dark .nx-header.is-scrolled {
-    background: rgba(16, 16, 34, 0.48);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.30);
+    background: rgba(11, 18, 32, 0.82);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
 }
 
 .nx-header__row {
@@ -48,18 +47,13 @@
     align-items: center;
     justify-content: center;
     border-radius: 14px;
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    background: rgba(255, 255, 255, 0.60);
+    border: 1px solid var(--nx-border);
+    background: var(--nx-card-soft);
+    color: var(--nx-text);
     font-weight: 900;
     cursor: pointer;
     flex-shrink: 0;
     margin-left: 16px;
-}
-
-.dark .hamb {
-    border-color: rgba(255, 255, 255, 0.14);
-    background: rgba(16, 16, 34, 0.60);
-    color: rgba(255, 255, 255, 0.90);
 }
 
 @media (min-width: 900px) {
@@ -93,7 +87,7 @@
 .nx-brand__tag {
     font-weight: 850;
     font-size: 12px;
-    opacity: 0.7;
+    color: var(--nx-muted);
     margin-top: 2px;
 }
 
@@ -121,26 +115,15 @@
     outline: none;
 }
 
-.dark .search__input {
-    background: rgba(16, 16, 34, 0.62);
-    border-color: rgba(255, 255, 255, 0.12);
-    color: rgba(255, 255, 255, 0.92);
-}
-
 .search__btn {
     width: 44px;
     height: 44px;
     border-radius: 16px;
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    background: rgba(15, 23, 42, 0.04);
+    border: 1px solid var(--nx-border);
+    background: var(--nx-card-soft);
+    color: var(--nx-text);
     font-weight: 950;
     cursor: pointer;
-}
-
-.dark .search__btn {
-    border-color: rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.92);
 }
 
 .nx-nav {
@@ -153,7 +136,6 @@
     .nx-nav {
         display: inline-flex;
     }
-
 }
 
 .nx-nav__link {
@@ -161,27 +143,21 @@
     background: transparent;
     cursor: pointer;
     text-decoration: none;
-    color: inherit;
+    color: var(--nx-text-soft);
     font-weight: 900;
     padding: 10px 12px;
     border-radius: 14px;
-    transition: background 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
 .nx-nav__link:hover {
-    background: rgba(15, 23, 42, 0.06);
-}
-
-.dark .nx-nav__link:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(79, 70, 229, 0.06);
+    color: var(--nx-text);
 }
 
 .nx-nav__link.is-active {
-    background: rgba(15, 23, 42, 0.10);
-}
-
-.dark .nx-nav__link.is-active {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(79, 70, 229, 0.10);
+    color: var(--nx-text);
 }
 
 .cartIcon {
@@ -211,7 +187,7 @@
 .mobileOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.30);
     backdrop-filter: blur(6px);
     z-index: 60;
 }
@@ -222,17 +198,12 @@
     left: 12px;
     right: 12px;
     border-radius: 22px;
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.12);
+    border: 1px solid var(--nx-border);
+    background: var(--nx-card-strong);
+    box-shadow: var(--nx-shadow-md);
     padding: 10px;
     display: grid;
     gap: 6px;
-}
-
-.dark .mobileMenu {
-    background: rgba(16, 16, 34, 0.90);
-    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .mobileMenu a,
@@ -240,17 +211,11 @@
     text-align: left;
     padding: 12px 12px;
     border-radius: 16px;
-    border: 1px solid rgba(15, 23, 42, 0.10);
-    background: rgba(15, 23, 42, 0.04);
+    border: 1px solid var(--nx-border);
+    background: var(--nx-card-soft);
+    color: var(--nx-text);
     font-weight: 900;
     cursor: pointer;
-}
-
-.dark .mobileMenu a,
-.dark .mobileMenu button {
-    border-color: rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.92);
 }
 
 .mSearch {
@@ -271,5 +236,3 @@
     color: white;
     background: linear-gradient(135deg, var(--nx-brand-1), var(--nx-brand-3));
 }
-
-

@@ -12,12 +12,8 @@
 .panel__sub {
     margin-top: 4px;
     font-weight: 800;
-    color: rgba(11, 18, 32, 0.62);
+    color: var(--nx-muted);
     font-size: 13px;
-}
-
-.dark .panel__sub {
-    color: rgba(255, 255, 255, 0.65);
 }
 
 .stats {
@@ -30,13 +26,8 @@
 .mini-stat {
     padding: 12px;
     border-radius: 16px;
-    border: 1px solid rgba(15, 23, 42, 0.10);
-    background: rgba(255, 255, 255, 0.70);
-}
-
-.dark .mini-stat {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.10);
+    border: 1px solid var(--nx-border);
+    background: var(--nx-card-soft);
 }
 
 .table {
@@ -51,23 +42,14 @@
     gap: 10px;
     padding: 12px;
     border-radius: 18px;
-    border: 1px solid rgba(15, 23, 42, 0.10);
-    background: rgba(255, 255, 255, 0.70);
+    border: 1px solid var(--nx-border);
+    background: var(--nx-card-soft);
     align-items: center;
 }
 
-.dark .row {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.10);
-}
-
 .row.head {
-    background: rgba(15, 23, 42, 0.03);
+    background: rgba(79, 70, 229, 0.08);
     font-weight: 950;
-}
-
-.dark .row.head {
-    background: rgba(255, 255, 255, 0.06);
 }
 
 @media (max-width: 900px) {
@@ -97,11 +79,7 @@
     margin-top: 2px;
     font-size: 12px;
     font-weight: 800;
-    color: rgba(11, 18, 32, 0.62);
-}
-
-.dark .muted {
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--nx-muted);
 }
 
 .actions {
@@ -114,8 +92,9 @@
     padding: 6px 10px;
     border-radius: 999px;
     font-weight: 950;
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--nx-border);
+    background: var(--nx-card-strong);
+    color: var(--nx-text);
 }
 
 .pill[data-status="Paid"] {

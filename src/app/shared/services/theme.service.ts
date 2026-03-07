@@ -15,11 +15,14 @@ export class ThemeService {
 
         effect(() => {
             const m = this.mode();
-            document.documentElement.classList.toggle('dark', m === 'dark');
+            const root = document.documentElement;
+
+            root.classList.toggle('dark', m === 'dark');
+            root.classList.toggle('light', m === 'light');
+
             localStorage.setItem(THEME_KEY, m);
         });
     }
-    
 
     toggle(): void {
         this.mode.set(this.mode() === 'dark' ? 'light' : 'dark');
@@ -27,7 +30,10 @@ export class ThemeService {
 
     private load(): 'light' | 'dark' {
         if (!this.isBrowser) return 'light';
-        const v = localStorage.getItem(THEME_KEY);
-        return v === 'dark' ? 'dark' : 'light';
+
+        const saved = localStorage.getItem(THEME_KEY);
+        if (saved === 'dark' || saved === 'light') return saved;
+
+        return 'light';
     }
 }

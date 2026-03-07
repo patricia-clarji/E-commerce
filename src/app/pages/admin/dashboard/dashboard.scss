@@ -27,11 +27,7 @@
 .stat__label {
     font-size: 13px;
     font-weight: 900;
-    color: rgba(11, 18, 32, 0.62);
-}
-
-.dark .stat__label {
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--nx-muted);
 }
 
 .stat__value {
@@ -46,11 +42,7 @@
     margin-top: 10px;
     font-size: 12px;
     font-weight: 800;
-    color: rgba(11, 18, 32, 0.58);
-}
-
-.dark .stat__meta {
-    color: rgba(255, 255, 255, 0.62);
+    color: var(--nx-muted);
 }
 
 .panel {
@@ -68,11 +60,7 @@
     margin-top: 4px;
     font-size: 13px;
     font-weight: 800;
-    color: rgba(11, 18, 32, 0.62);
-}
-
-.dark .panel__sub {
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--nx-muted);
 }
 
 .mini-list {
@@ -88,13 +76,8 @@
     gap: 12px;
     padding: 12px 14px;
     border-radius: 16px;
-    border: 1px solid rgba(15, 23, 42, 0.10);
-    background: rgba(255, 255, 255, 0.65);
-}
-
-.dark .mini-row {
-    border-color: rgba(255, 255, 255, 0.10);
-    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--nx-border);
+    background: var(--nx-card-soft);
 }
 
 .mini-row__main,
@@ -116,11 +99,7 @@
 .muted {
     font-size: 12px;
     font-weight: 800;
-    color: rgba(11, 18, 32, 0.62);
-}
-
-.dark .muted {
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--nx-muted);
 }
 
 .stock-pill {
@@ -136,16 +115,10 @@
     margin-top: 14px;
     padding: 18px;
     border-radius: 18px;
-    border: 1px dashed rgba(15, 23, 42, 0.14);
+    border: 1px dashed var(--nx-border-strong);
     font-weight: 900;
-    color: rgba(11, 18, 32, 0.68);
-    background: rgba(255, 255, 255, 0.45);
-}
-
-.dark .empty-state {
-    border-color: rgba(255, 255, 255, 0.14);
-    color: rgba(255, 255, 255, 0.75);
-    background: rgba(255, 255, 255, 0.04);
+    color: var(--nx-text-soft);
+    background: var(--nx-card-soft);
 }
 
 .hint {
