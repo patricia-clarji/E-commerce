@@ -70,7 +70,7 @@ For more information on using the Angular CLI, including detailed command refere
 
 <img width="963" height="908" alt="image" src="https://github.com/user-attachments/assets/a48b6d3b-139d-4672-869a-cf9920bba806" />
 
-responsive:
+### responsive:
 <img width="960" height="892" alt="image" src="https://github.com/user-attachments/assets/af379358-fadf-424a-9de6-dc6201e3ad92" />
 
 <img width="949" height="876" alt="image" src="https://github.com/user-attachments/assets/fc0a5dce-463a-4caf-9bb8-f6bc6155992a" />
@@ -81,45 +81,66 @@ responsive:
 
 <img width="967" height="913" alt="image" src="https://github.com/user-attachments/assets/f73cb0c6-d25d-4559-972e-4d3f255a0680" />
 
+
+
 ## Sign-Up Page:
 
 <img width="965" height="915" alt="image" src="https://github.com/user-attachments/assets/2e04909a-0f24-49cb-8812-b277e73bea58" />
+
+
 
 ## Login (as User) Page:
 
 <img width="959" height="906" alt="image" src="https://github.com/user-attachments/assets/013966e0-055b-4c14-a7db-b8dcad2117e3" />
 
+
+
 ## Adding to cart + filter products:
 
 <img width="981" height="912" alt="image" src="https://github.com/user-attachments/assets/fc395766-ff0b-4b32-9c85-bfddaa75ca8f" />
+
+
 
 ## Search feature:
 
 <img width="967" height="904" alt="image" src="https://github.com/user-attachments/assets/60a06d82-3eb9-4854-a7fd-7610c4deda94" />
 
+
+
 ## Cart page + dark mode feature:
 
 <img width="958" height="922" alt="image" src="https://github.com/user-attachments/assets/7f9c7d36-8eb8-42b5-9454-56c04051e68e" />
+
+
 
 ## Profile Page:
 
 <img width="962" height="898" alt="image" src="https://github.com/user-attachments/assets/55c73bbb-d70a-4456-b70f-0218a620fd7b" />
 
+
 <img width="947" height="909" alt="image" src="https://github.com/user-attachments/assets/a44425c6-eeae-443a-8805-e0777520a1a5" />
+
 
 
 ## Checkout and order-success:
 <img width="972" height="913" alt="image" src="https://github.com/user-attachments/assets/298803af-450f-417d-a758-01a94a88c0e1" />
 
+
 <img width="946" height="906" alt="image" src="https://github.com/user-attachments/assets/8ee03a9f-5e2d-40b9-8207-a6261e96a1cb" />
+
+
 
 ## Admin Panel:
 
 <img width="833" height="922" alt="image" src="https://github.com/user-attachments/assets/cc5d4703-02a0-4b7a-ac55-dd231d33c40c" />
 
+
+
 ## CRUD feature:
 
 <img width="781" height="923" alt="image" src="https://github.com/user-attachments/assets/ac527338-b10a-42ff-8659-e1d0c670a324" />
+
+
 
 ## All orders info:
 
