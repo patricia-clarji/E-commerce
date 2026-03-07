@@ -56,7 +56,7 @@ export class Checkout {
       customer: v.fullName.trim(),
       email: user?.email ?? 'unknown@nexora.local',
       date: new Date().toISOString(),
-      status: 'Pending',
+      status: 'Paid',
       items: this.items().map((it) => ({
         productId: it.product.id,
         productName: it.product.name,
