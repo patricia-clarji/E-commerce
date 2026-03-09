@@ -32,7 +32,7 @@ export class ProductDetail {
     public cart: CartService,
     public toast: ToastService,
     public auth: AuthService
-  ) { }
+  ) {}
 
   addOne() {
     const p = this.product();

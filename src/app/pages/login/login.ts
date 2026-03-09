@@ -44,10 +44,16 @@ export class LoginComponent {
       error: (err) => {
         this.loading.set(false);
         console.error('LOGIN ERROR', err);
-        const apiMsg = err?.error?.message || err?.message;
+        console.error('LOGIN ERROR BODY', err?.error);
+
+        const apiMsg =
+          err?.error?.message ||
+          err?.error?.error ||
+          (Array.isArray(err?.error?.errors) ? err.error.errors.join(', ') : '') ||
+          err?.message;
+
         this.error = apiMsg || 'Invalid email or password';
       },
     });
-
   }
 }

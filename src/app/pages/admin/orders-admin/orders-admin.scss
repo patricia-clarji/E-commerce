@@ -67,7 +67,9 @@
 }
 
 .mono {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family:
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+        monospace;
     font-weight: 900;
 }
 
@@ -97,25 +99,25 @@
     color: var(--nx-text);
 }
 
-.pill[data-status="Paid"] {
+.pill[data-status='Paid'] {
     border-color: rgba(16, 185, 129, 0.22);
     background: rgba(16, 185, 129, 0.12);
     color: rgb(5, 150, 105);
 }
 
-.pill[data-status="Pending"] {
+.pill[data-status='Pending'] {
     border-color: rgba(245, 158, 11, 0.28);
     background: rgba(245, 158, 11, 0.14);
     color: rgb(146, 64, 14);
 }
 
-.pill[data-status="Completed"] {
+.pill[data-status='Completed'] {
     border-color: rgba(59, 130, 246, 0.25);
     background: rgba(59, 130, 246, 0.12);
     color: rgb(29, 78, 216);
 }
 
-.pill[data-status="Cancelled"] {
+.pill[data-status='Cancelled'] {
     border-color: rgba(239, 68, 68, 0.26);
     background: rgba(239, 68, 68, 0.12);
     color: rgb(185, 28, 28);

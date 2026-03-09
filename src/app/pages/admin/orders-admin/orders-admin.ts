@@ -19,16 +19,14 @@ export class OrdersAdmin {
     [...this.orders()].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   );
 
-  readonly paidCount = computed(() =>
-    this.orders().filter((o) => o.status === 'Paid').length
+  readonly paidCount = computed(() => this.orders().filter((o) => o.status === 'Paid').length);
+
+  readonly pendingCount = computed(
+    () => this.orders().filter((o) => o.status === 'Pending').length
   );
 
-  readonly pendingCount = computed(() =>
-    this.orders().filter((o) => o.status === 'Pending').length
-  );
-
-  readonly cancelledCount = computed(() =>
-    this.orders().filter((o) => o.status === 'Cancelled').length
+  readonly cancelledCount = computed(
+    () => this.orders().filter((o) => o.status === 'Cancelled').length
   );
 
   readonly revenue = computed(() =>

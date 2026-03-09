@@ -1,102 +1,125 @@
 <header class="nx-header" [class.is-scrolled]="scrolled()">
-    <div class="container-page nx-header__row">
-        <div class="left">
-            <a class="nx-brand" routerLink="/" (click)="closeMenu()">
-                <span class="nx-brand__mark"></span>
-                <span>
-                    <div class="nx-brand__name">Nexora</div>
-                    <div class="nx-brand__tag">Premium Store</div>
-                </span>
-            </a>
+  <div class="container-page nx-header__row">
+    <div class="left">
+      <a class="nx-brand" routerLink="/" (click)="closeMenu()">
+        <span class="nx-brand__mark"></span>
+        <span>
+          <div class="nx-brand__name">Nexora</div>
+          <div class="nx-brand__tag">Premium Store</div>
+        </span>
+      </a>
 
-            <button class="hamb" type="button" (click)="toggleMenu()"
-                aria-label="Menu">☰</button>
-        </div>
-
-        <!-- ✅ Desktop search -->
-        <form class="search" (ngSubmit)="submitSearch()">
-            <input
-                class="search__input"
-                [ngModel]="search()"
-                (ngModelChange)="search.set($event)"
-                name="q"
-                placeholder="Search products..."
-                autocomplete="off" />
-            <button class="search__btn" type="submit"
-                aria-label="Search">⌕</button>
-        </form>
-
-        <nav class="nx-nav">
-            <a class="nx-nav__link" routerLink="/" routerLinkActive="is-active"
-                [routerLinkActiveOptions]="{ exact: true }">
-                Home
-            </a>
-            <a class="nx-nav__link" routerLink="/products"
-                routerLinkActive="is-active">Products</a>
-
-            <!-- ✅ Cart icon + badge -->
-            <a class="nx-nav__link" routerLink="/cart"
-                routerLinkActive="is-active" aria-label="Cart">
-                <span class="cartIcon">
-                    🛒
-                    <span class="cartBadge" *ngIf="cartCount() > 0">{{
-                        cartCount() }}</span>
-                </span>
-            </a>
-
-            <button class="nx-nav__link" type="button" (click)="theme.toggle()">
-                {{ theme.mode() === 'dark' ? 'Light' : 'Dark' }}
-            </button>
-
-            <ng-container *ngIf="!auth.isAuthenticated(); else logged">
-                <a class="nx-nav__link" routerLink="/login"
-                    routerLinkActive="is-active">Login</a>
-                <a class="nx-nav__link" routerLink="/register"
-                    routerLinkActive="is-active">Sign-Up</a>
-            </ng-container>
-
-            <ng-template #logged>
-                <a class="nx-nav__link" routerLink="/profile"
-                    routerLinkActive="is-active">Profile</a>
-                <a class="nx-nav__link" *ngIf="auth.isAdmin()"
-                    routerLink="/admin" routerLinkActive="is-active">Admin</a>
-                <button class="nx-nav__link" type="button"
-                    (click)="logout()">Logout</button>
-            </ng-template>
-        </nav>
+      <button class="hamb" type="button" (click)="toggleMenu()" aria-label="Menu">☰</button>
     </div>
 
-    <!-- ✅ Mobile menu overlay -->
-    <div class="mobileOverlay" *ngIf="menuOpen()" appClickOutside
-        (clickOutside)="closeMenu()">
-        <div class="mobileMenu" (click)="$event.stopPropagation()">
-            <!-- ✅ Mobile search -->
-            <form class="mSearch" (ngSubmit)="submitSearch()">
-                <input class="search__input" [ngModel]="search()"
-                    (ngModelChange)="search.set($event)" name="q" />
-                <button class="search__btn" type="submit">⌕</button>
-            </form>
+    <form class="search" (ngSubmit)="submitSearch()">
+      <input
+        class="search__input"
+        [ngModel]="search()"
+        (ngModelChange)="search.set($event)"
+        name="q"
+        placeholder="Search products..."
+        autocomplete="off"
+      />
+      <button class="search__btn" type="submit" aria-label="Search">⌕</button>
+    </form>
 
-            <a routerLink="/" (click)="closeMenu()">Home</a>
-            <a routerLink="/products" (click)="closeMenu()">Products</a>
-            <a routerLink="/cart" (click)="closeMenu()">Cart <span class="pill"
-                    *ngIf="cartCount() > 0">{{ cartCount() }}</span></a>
+    <nav class="nx-nav">
+      <a
+        class="nx-nav__link"
+        routerLink="/"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Home
+      </a>
+      <a class="nx-nav__link" routerLink="/products" routerLinkActive="is-active">Products</a>
 
-            <button type="button" (click)="theme.toggle()">Toggle {{
-                theme.mode() === 'dark' ? 'Light' : 'Dark' }}</button>
+      <a class="nx-nav__link" routerLink="/cart" routerLinkActive="is-active" aria-label="Cart">
+        <span class="cartIcon">
+          🛒
+          <span class="cartBadge" *ngIf="cartCount() > 0">{{ cartCount() }}</span>
+        </span>
+      </a>
 
-            <ng-container *ngIf="!auth.isAuthenticated(); else loggedMobile">
-                <a routerLink="/login" (click)="closeMenu()">Login</a>
-                <a routerLink="/register" (click)="closeMenu()">Create
-                    account</a>
-            </ng-container>
+      <button class="nx-nav__link" type="button" (click)="theme.toggle()">
+        {{ theme.mode() === 'dark' ? 'Light' : 'Dark' }}
+      </button>
 
-            <ng-template #loggedMobile>
-                <a routerLink="/profile" (click)="closeMenu()">Profile</a>
-                <a *ngIf="auth.isAdmin()" routerLink="/admin"
-                    (click)="closeMenu()">Admin</a>
-                <button type="button" (click)="logout()">Logout</button>
-            </ng-template>
+      <ng-container *ngIf="!auth.isAuthenticated(); else logged">
+        <a class="nx-nav__link" routerLink="/login" routerLinkActive="is-active">Login</a>
+        <a class="nx-nav__link" routerLink="/register" routerLinkActive="is-active">Sign-Up</a>
+      </ng-container>
+
+      <ng-template #logged>
+        <a class="nx-nav__link" routerLink="/profile" routerLinkActive="is-active">Profile</a>
+        <a
+          class="nx-nav__link"
+          *ngIf="auth.isAdmin()"
+          routerLink="/admin"
+          routerLinkActive="is-active"
+          >Admin</a
+        >
+        <button class="nx-nav__link" type="button" (click)="logout()">Logout</button>
+      </ng-template>
+    </nav>
+  </div>
+
+  <!-- Mobile side drawer -->
+  <div class="mobileOverlay" *ngIf="menuOpen()" appClickOutside (clickOutside)="closeMenu()">
+    <aside class="mobileDrawer" (click)="$event.stopPropagation()">
+      <div class="mobileDrawer__top">
+        <div class="mobileDrawer__brand">
+          <span class="nx-brand__mark"></span>
+          <div>
+            <div class="nx-brand__name">Nexora</div>
+            <div class="nx-brand__tag">Premium Store</div>
+          </div>
         </div>
-    </div>
+
+        <button
+          class="mobileDrawer__close"
+          type="button"
+          (click)="closeMenu()"
+          aria-label="Close menu"
+        >
+          ✕
+        </button>
+      </div>
+
+      <form class="mSearch" (ngSubmit)="submitSearch()">
+        <input
+          class="search__input"
+          [ngModel]="search()"
+          (ngModelChange)="search.set($event)"
+          name="q"
+          placeholder="Search products..."
+        />
+        <button class="search__btn" type="submit">⌕</button>
+      </form>
+
+      <nav class="mobileMenu">
+        <a routerLink="/" (click)="closeMenu()">Home</a>
+        <a routerLink="/products" (click)="closeMenu()">Products</a>
+        <a routerLink="/cart" (click)="closeMenu()"
+          >Cart <span class="pill" *ngIf="cartCount() > 0">{{ cartCount() }}</span></a
+        >
+
+        <button type="button" (click)="theme.toggle()">
+          Toggle {{ theme.mode() === 'dark' ? 'Light' : 'Dark' }}
+        </button>
+
+        <ng-container *ngIf="!auth.isAuthenticated(); else loggedMobile">
+          <a routerLink="/login" (click)="closeMenu()">Login</a>
+          <a routerLink="/register" (click)="closeMenu()">Create account</a>
+        </ng-container>
+
+        <ng-template #loggedMobile>
+          <a routerLink="/profile" (click)="closeMenu()">Profile</a>
+          <a *ngIf="auth.isAdmin()" routerLink="/admin" (click)="closeMenu()">Admin</a>
+          <button type="button" (click)="logout()">Logout</button>
+        </ng-template>
+      </nav>
+    </aside>
+  </div>
 </header>

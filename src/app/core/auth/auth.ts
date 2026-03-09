@@ -9,7 +9,6 @@ import { CartService } from '../../shared/services/cart';
 
 const ACCESS_COOKIE = 'nx_access_token';
 const REFRESH_COOKIE = 'nx_refresh_token';
-const ADMIN_EMAIL = 'patricia@nexora.com';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -24,7 +23,7 @@ export class AuthService {
   isLoggedInComputed = computed(() => !!this._accessToken());
   isAdminComputed = computed(() => {
     const user = this._user();
-    return (user?.role ?? 'user') === 'admin' || user?.email === ADMIN_EMAIL;
+    return user?.role === 'admin';
   });
 
   constructor(
@@ -36,13 +35,16 @@ export class AuthService {
     if (token) this._accessToken.set(token);
 
     if (this._accessToken()) {
-      this.api.getCurrentUser().pipe(
-        tap((u) => {
-          this._user.set(u);
-          this.cart.restoreForUser(u?.email ?? null);
-        }),
-        catchError(() => of(null))
-      ).subscribe();
+      this.api
+        .getCurrentUser()
+        .pipe(
+          tap((u) => {
+            this._user.set(u);
+            this.cart.restoreForUser(u?.email ?? null);
+          }),
+          catchError(() => of(null))
+        )
+        .subscribe();
     }
   }
 
@@ -79,7 +81,7 @@ export class AuthService {
 
     try {
       localStorage.setItem('user', JSON.stringify(updatedUser));
-    } catch { }
+    } catch {}
 
     this.cart.restoreForUser(updatedUser?.email ?? null);
 
@@ -137,7 +139,7 @@ export class AuthService {
     try {
       this.cookies?.delete('nx_access_token', '/');
       this.cookies?.delete('nx_refresh_token', '/');
-    } catch { }
+    } catch {}
 
     if (redirectToLogin) this.router.navigate(['/login']);
   }

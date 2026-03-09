@@ -89,12 +89,7 @@ export class ProductsService {
         return {
           ...p,
           stock: nextStock,
-          status:
-            nextStock === 0
-              ? 'Out of Stock'
-              : nextStock <= 10
-              ? 'Low Stock'
-              : 'In Stock',
+          status: nextStock === 0 ? 'Out of Stock' : nextStock <= 10 ? 'Low Stock' : 'In Stock',
         };
       });
 
@@ -114,9 +109,7 @@ export class ProductsService {
   private loadFromStorage(): Product[] {
     const parsed = StorageUtil.get<unknown>(this.LS_KEY);
     if (!parsed || !Array.isArray(parsed)) return [];
-    return (parsed as unknown[])
-      .filter((p) => this.isProductLike(p))
-      .map((p) => p as Product);
+    return (parsed as unknown[]).filter((p) => this.isProductLike(p)).map((p) => p as Product);
   }
 
   private persist(list: Product[]) {

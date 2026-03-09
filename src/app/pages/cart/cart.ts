@@ -20,7 +20,11 @@ export class Cart {
   readonly tax = computed(() => this.cart.tax());
   readonly total = computed(() => this.cart.total());
 
-  constructor(public cart: CartService, public auth: AuthService, public toast: ToastService) {}
+  constructor(
+    public cart: CartService,
+    public auth: AuthService,
+    public toast: ToastService
+  ) {}
 
   onQtyChange(it: CartItem, nextQty: number) {
     if (nextQty === 0) {
@@ -33,7 +37,10 @@ export class Cart {
 
     // If user reached max stock, show toast (requirement: toast + disable)
     if (nextQty >= it.product.stock) {
-      this.toast.info('Max stock reached', `Only ${it.product.stock} available for "${it.product.name}".`);
+      this.toast.info(
+        'Max stock reached',
+        `Only ${it.product.stock} available for "${it.product.name}".`
+      );
     }
   }
 }

@@ -20,7 +20,11 @@ export class Profile {
 
   readonly form;
 
-  constructor(private fb: FormBuilder, public auth: AuthService, private toast: ToastService) {
+  constructor(
+    private fb: FormBuilder,
+    public auth: AuthService,
+    private toast: ToastService
+  ) {
     this.form = this.fb.group({
       firstName: ['', [Validators.minLength(2)]],
       lastName: ['', [Validators.minLength(2)]],

@@ -21,7 +21,9 @@ export class ProductList {
 
   // normalize helper
   private normalize(v: unknown): string {
-    return String(v ?? '').trim().toLowerCase();
+    return String(v ?? '')
+      .trim()
+      .toLowerCase();
   }
 
   readonly products = computed(() => this.productsService.items());
@@ -46,15 +48,9 @@ export class ProductList {
       const brand = this.normalize(p.brand);
       const cat = this.normalize(p.category);
 
-      const matchesQ =
-        !q ||
-        name.includes(q) ||
-        brand.includes(q) ||
-        cat.includes(q);
+      const matchesQ = !q || name.includes(q) || brand.includes(q) || cat.includes(q);
 
-      const matchesC =
-        selected === 'all' ||
-        cat === selected;
+      const matchesC = selected === 'all' || cat === selected;
 
       return matchesQ && matchesC;
     });

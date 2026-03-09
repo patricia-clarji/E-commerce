@@ -9,7 +9,10 @@ export class AuthApi {
   private http = inject(HttpClient);
   private base = environment.apiBaseUrl; // should already include /api for ngrok backend
 
-  login(payload: { email: string; password: string }): Observable<LoginResponseV2 | LoginResponseV1> {
+  login(payload: {
+    email: string;
+    password: string;
+  }): Observable<LoginResponseV2 | LoginResponseV1> {
     // ngrok backend expects JSON body
     return this.http.post<LoginResponseV2 | LoginResponseV1>(`${this.base}/auth/login`, payload);
   }

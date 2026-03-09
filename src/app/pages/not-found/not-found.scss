@@ -1,17 +1,17 @@
 .container-page {
-    min-height: calc(100dvh - 120px);
-    display: grid;
-    place-items: center;
-    padding: 24px;
+  min-height: calc(100dvh - 120px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
 }
 
 .panel {
-    width: min(520px, 100%);
-    padding: 24px;
-    text-align: center;
+  width: min(520px, 100%);
+  padding: 24px;
+  text-align: center;
 }
 
 .btn-primary {
-    display: inline-flex;
-    margin-top: 16px;
+  display: inline-flex;
+  margin-top: 16px;
 }

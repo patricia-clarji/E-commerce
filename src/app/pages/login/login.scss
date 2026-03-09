@@ -1,61 +1,61 @@
 .panel {
-    padding: 18px;
-    border-radius: 28px;
-    max-width: 520px;
-    margin: 0 auto;
+  padding: 18px;
+  border-radius: 28px;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
 .title {
-    font-weight: 950;
-    font-size: 24px;
-    letter-spacing: -0.4px;
+  font-weight: 950;
+  font-size: 24px;
+  letter-spacing: -0.4px;
 }
 
 .sub {
-    margin-top: 4px;
-    font-weight: 800;
-    color: var(--nx-muted);
-    font-size: 13px;
+  margin-top: 4px;
+  font-weight: 800;
+  color: var(--nx-muted);
+  font-size: 13px;
 }
 
 .form {
-    margin-top: 14px;
-    display: grid;
-    gap: 12px;
+  margin-top: 14px;
+  display: grid;
+  gap: 12px;
 }
 
 .err {
-    margin-top: 6px;
-    font-size: 12px;
-    font-weight: 900;
-    color: rgba(239, 68, 68, 0.92);
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(239, 68, 68, 0.92);
 }
 
 .bottom {
-    margin-top: 8px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    flex-wrap: wrap;
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  flex-wrap: wrap;
 }
 
 .muted {
-    color: var(--nx-muted);
+  color: var(--nx-muted);
 }
 
 .hint {
-    margin-top: 14px;
-    padding: 12px;
-    border-radius: 22px;
-    font-weight: 850;
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 22px;
+  font-weight: 850;
 }
 
 .btn-primary {
-    width: 15%;
-    border-radius: 15px;
-    margin-left: 70%;
-    height: 40px;
-    margin-top: 8px;
+  width: 15%;
+  border-radius: 15px;
+  margin-left: 70%;
+  height: 40px;
+  margin-top: 8px;
 }

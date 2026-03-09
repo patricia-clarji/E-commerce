@@ -1,231 +1,237 @@
 .card {
-    display: block;
-    border-radius: 28px;
-    border: 1px solid var(--nx-border);
-    background: var(--nx-card);
-    box-shadow: var(--nx-shadow-sm);
-    overflow: hidden;
-    position: relative;
-    text-decoration: none;
-    color: inherit;
-    transform: translateY(0);
-    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  display: block;
+  border-radius: 28px;
+  border: 1px solid var(--nx-border);
+  background: var(--nx-card);
+  box-shadow: var(--nx-shadow-sm);
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  transform: translateY(0);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
 }
 
 .card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--nx-shadow-md);
-    border-color: rgba(79, 70, 229, 0.22);
+  transform: translateY(-4px);
+  box-shadow: var(--nx-shadow-md);
+  border-color: rgba(79, 70, 229, 0.22);
 }
 
 .card__media {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.45);
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.45);
 }
 
 .dark .card__media {
-    background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .card__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transform: scale(1);
-    transition: transform 0.35s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transition: transform 0.35s ease;
 }
 
 .card:hover .card__img {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .card__shine {
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(600px 240px at 10% 20%, rgba(79, 70, 229, 0.10), transparent 55%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.00), rgba(15, 23, 42, 0.05));
-    pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(600px 240px at 10% 20%, rgba(79, 70, 229, 0.1), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(15, 23, 42, 0.05));
+  pointer-events: none;
 }
 
 .dark .card__shine {
-    background:
-        radial-gradient(600px 240px at 10% 20%, rgba(79, 70, 229, 0.12), transparent 55%),
-        linear-gradient(180deg, rgba(0, 0, 0, 0.00), rgba(0, 0, 0, 0.18));
+  background:
+    radial-gradient(600px 240px at 10% 20%, rgba(79, 70, 229, 0.12), transparent 55%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.18));
 }
 
 .card__badge {
-    position: absolute;
-    left: 12px;
-    top: 12px;
-    padding: 7px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 900;
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    background: rgba(255, 255, 255, 0.86);
-    color: rgba(11, 18, 32, 0.86);
-    z-index: 2;
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.86);
+  color: rgba(11, 18, 32, 0.86);
+  z-index: 2;
 }
 
-.card__badge[data-badge="Best Seller"] {
-    border-color: rgba(245, 158, 11, 0.28);
-    background: rgba(245, 158, 11, 0.14);
-    color: rgb(146, 64, 14);
+.card__badge[data-badge='Best Seller'] {
+  border-color: rgba(245, 158, 11, 0.28);
+  background: rgba(245, 158, 11, 0.14);
+  color: rgb(146, 64, 14);
 }
 
-.card__badge[data-badge="New"] {
-    border-color: rgba(6, 182, 212, 0.26);
-    background: rgba(6, 182, 212, 0.12);
-    color: rgb(8, 145, 178);
+.card__badge[data-badge='New'] {
+  border-color: rgba(6, 182, 212, 0.26);
+  background: rgba(6, 182, 212, 0.12);
+  color: rgb(8, 145, 178);
 }
 
-.card__badge[data-badge="Limited"] {
-    border-color: rgba(236, 72, 153, 0.26);
-    background: rgba(236, 72, 153, 0.12);
-    color: rgb(190, 24, 93);
+.card__badge[data-badge='Limited'] {
+  border-color: rgba(236, 72, 153, 0.26);
+  background: rgba(236, 72, 153, 0.12);
+  color: rgb(190, 24, 93);
 }
 
-.card__badge[data-badge="Eco"] {
-    border-color: rgba(16, 185, 129, 0.24);
-    background: rgba(16, 185, 129, 0.12);
-    color: rgb(5, 150, 105);
+.card__badge[data-badge='Eco'] {
+  border-color: rgba(16, 185, 129, 0.24);
+  background: rgba(16, 185, 129, 0.12);
+  color: rgb(5, 150, 105);
 }
 
 .card__body {
-    padding: 16px 16px 14px;
-    display: grid;
-    gap: 8px;
+  padding: 16px 16px 14px;
+  display: grid;
+  gap: 8px;
 }
 
 .card__meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .card__brand {
-    font-size: 12px;
-    font-weight: 900;
-    color: var(--nx-muted);
-    line-height: 1;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--nx-muted);
+  line-height: 1;
 }
 
 .card__title {
-    font-size: 16px;
-    font-weight: 950;
-    letter-spacing: -0.2px;
-    color: var(--nx-text);
-    line-height: 1.2;
+  font-size: 16px;
+  font-weight: 950;
+  letter-spacing: -0.2px;
+  color: var(--nx-text);
+  line-height: 1.2;
 }
 
 .card__desc {
-    font-size: 13px;
-    color: var(--nx-muted);
-    line-height: 1.45;
-    min-height: 38px;
+  font-size: 13px;
+  color: var(--nx-muted);
+  line-height: 1.45;
+  min-height: 38px;
 }
 
 .card__footer {
-    margin-top: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .nx-price__now {
-    font-weight: 950;
-    font-size: 16px;
-    color: var(--nx-text);
+  font-weight: 950;
+  font-size: 16px;
+  color: var(--nx-text);
 }
 
 .nx-price__old {
-    margin-left: 8px;
-    font-weight: 800;
-    font-size: 12px;
-    color: var(--nx-muted);
-    text-decoration: line-through;
+  margin-left: 8px;
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--nx-muted);
+  text-decoration: line-through;
 }
 
 .nx-stars {
-    --rating: 0;
-    position: relative;
-    display: inline-block;
-    font-size: 13px;
-    line-height: 1;
-    letter-spacing: 1.5px;
+  --rating: 0;
+  position: relative;
+  display: inline-block;
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 1.5px;
 }
 
 .nx-stars::before {
-    content: "★★★★★";
-    color: rgba(148, 163, 184, 0.35);
+  content: '★★★★★';
+  color: rgba(148, 163, 184, 0.35);
 }
 
 .nx-stars::after {
-    content: "★★★★★";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: calc((var(--rating) / 5) * 100%);
-    overflow: hidden;
-    background: linear-gradient(90deg, #f59e0b, #fb7185);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  content: '★★★★★';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc((var(--rating) / 5) * 100%);
+  overflow: hidden;
+  background: linear-gradient(90deg, #f59e0b, #fb7185);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .nx-qty {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px;
-    border-radius: 18px;
-    border: 1px solid var(--nx-border);
-    background: var(--nx-card-strong);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 18px;
+  border: 1px solid var(--nx-border);
+  background: var(--nx-card-strong);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
 .dark .nx-qty {
-    background: rgba(15, 23, 42, 0.78);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.20);
+  background: rgba(15, 23, 42, 0.78);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
 }
 
 .nx-qty__btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 14px;
-    border: 1px solid var(--nx-border);
-    background: rgba(15, 23, 42, 0.04);
-    color: var(--nx-text);
-    font-weight: 900;
-    cursor: pointer;
-    transition: background 0.16s ease, transform 0.16s ease, border-color 0.16s ease;
+  width: 34px;
+  height: 34px;
+  border-radius: 14px;
+  border: 1px solid var(--nx-border);
+  background: rgba(15, 23, 42, 0.04);
+  color: var(--nx-text);
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    background 0.16s ease,
+    transform 0.16s ease,
+    border-color 0.16s ease;
 }
 
 .dark .nx-qty__btn {
-    background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .nx-qty__btn:hover {
-    background: rgba(79, 70, 229, 0.08);
-    border-color: rgba(79, 70, 229, 0.20);
-    transform: translateY(-1px);
+  background: rgba(79, 70, 229, 0.08);
+  border-color: rgba(79, 70, 229, 0.2);
+  transform: translateY(-1px);
 }
 
 .nx-qty__btn--add {
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.18), rgba(6, 182, 212, 0.16));
-    border-color: rgba(79, 70, 229, 0.18);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.18), rgba(6, 182, 212, 0.16));
+  border-color: rgba(79, 70, 229, 0.18);
 }
 
 .nx-qty__count {
-    min-width: 26px;
-    text-align: center;
-    font-weight: 950;
-    color: var(--nx-text);
-    font-size: 14px;
+  min-width: 26px;
+  text-align: center;
+  font-weight: 950;
+  color: var(--nx-text);
+  font-size: 14px;
 }

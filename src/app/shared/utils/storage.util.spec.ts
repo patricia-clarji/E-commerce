@@ -1,7 +1,7 @@
-import { Storage } from './storageutil';
+import { StorageUtil } from './storage.util';
 
-describe('Storage', () => {
-  it('should create an instance', () => {
-    expect(new Storage()).toBeTruthy();
+describe('StorageUtil', () => {
+  it('should be defined', () => {
+    expect(StorageUtil).toBeDefined();
   });
 });

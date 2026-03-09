@@ -19,5 +19,4 @@ export const adminGuard: CanActivateFn = (_route, state) => {
   return true;
 };
 
-export const adminChildGuard: CanActivateChildFn = (route, state) =>
-  adminGuard(route, state);
+export const adminChildGuard: CanActivateChildFn = (route, state) => adminGuard(route, state);

@@ -13,7 +13,14 @@ import { PLATFORM_ID } from '@angular/core';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink,RouterModule, RouterLinkActive, ClickOutsideDirective],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    RouterModule,
+    RouterLinkActive,
+    ClickOutsideDirective,
+  ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

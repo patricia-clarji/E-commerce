@@ -23,7 +23,9 @@ export class CartService {
   readonly items = signal<CartItem[]>([]);
 
   readonly count = computed(() => this.items().reduce((sum, i) => sum + i.qty, 0));
-  readonly subtotal = computed(() => this.items().reduce((sum, i) => sum + i.product.price * i.qty, 0));
+  readonly subtotal = computed(() =>
+    this.items().reduce((sum, i) => sum + i.product.price * i.qty, 0)
+  );
 
   readonly shipping = computed(() =>
     this.subtotal() === 0 ? 0 : this.subtotal() >= SHIPPING_THRESHOLD ? 0 : SHIPPING_COST
@@ -33,16 +35,14 @@ export class CartService {
   readonly total = computed(() => this.subtotal() + this.shipping() + this.tax());
   readonly isEmpty = computed(() => this.items().length === 0);
 
-  constructor() { }
+  constructor() {}
 
   add(product: Product, qty = 1): void {
     this.items.update((arr) => {
       const existing = arr.find((i) => i.product.id === product.id);
       const next = existing
         ? arr.map((i) =>
-            i.product.id === product.id
-              ? { ...i, qty: Math.min(i.qty + qty, product.stock) }
-              : i
+            i.product.id === product.id ? { ...i, qty: Math.min(i.qty + qty, product.stock) } : i
           )
         : [...arr, { product, qty: Math.min(qty, product.stock) }];
 
@@ -67,9 +67,7 @@ export class CartService {
 
     this.items.update((arr) => {
       const next = arr.map((i) =>
-        i.product.id === productId
-          ? { ...i, qty: Math.min(qty, i.product.stock) }
-          : i
+        i.product.id === productId ? { ...i, qty: Math.min(qty, i.product.stock) } : i
       );
       this.persist(next);
       return next;

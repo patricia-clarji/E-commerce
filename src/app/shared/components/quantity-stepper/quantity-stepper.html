@@ -1,21 +1,23 @@
 <div class="nx-stepper" [ngClass]="{ 'is-disabled': disabled }">
-    <button
-        type="button"
-        class="nx-stepper__btn"
-        aria-label="Decrease quantity"
-        [disabled]="!canDec"
-        (click)="dec()">
-        −
-    </button>
+  <button
+    type="button"
+    class="nx-stepper__btn"
+    aria-label="Decrease quantity"
+    [disabled]="!canDec"
+    (click)="dec()"
+  >
+    −
+  </button>
 
-    <div class="nx-stepper__count" aria-live="polite">{{ value }}</div>
+  <div class="nx-stepper__count" aria-live="polite">{{ value }}</div>
 
-    <button
-        type="button"
-        class="nx-stepper__btn"
-        aria-label="Increase quantity"
-        [disabled]="!canInc"
-        (click)="inc()">
-        +
-    </button>
+  <button
+    type="button"
+    class="nx-stepper__btn"
+    aria-label="Increase quantity"
+    [disabled]="!canInc"
+    (click)="inc()"
+  >
+    +
+  </button>
 </div>

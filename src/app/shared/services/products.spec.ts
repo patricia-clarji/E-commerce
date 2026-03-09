@@ -15,7 +15,7 @@ describe('ProductsService', () => {
     service.addProduct({
       name: 'Test Item',
       brand: 'Test Brand',
-      category: 'Tech', 
+      category: 'Tech',
       price: 10,
       stock: 5,
       images: ['https://picsum.photos/seed/test/600/600'],

@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { StarRatingComponent } from './star-rating';
 
-import { StarRating } from './star-rating';
-
-describe('StarRating', () => {
-  let component: StarRating;
-  let fixture: ComponentFixture<StarRating>;
+describe('StarRatingComponent', () => {
+  let component: StarRatingComponent;
+  let fixture: ComponentFixture<StarRatingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StarRating],
+      imports: [StarRatingComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(StarRating);
+    fixture = TestBed.createComponent(StarRatingComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

@@ -1,15 +1,29 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, UrlTree } from '@angular/router';
+import { vi } from 'vitest';
+
 import { adminGuard } from './admin-guard';
 import { AuthService } from './auth';
 
 describe('adminGuard', () => {
-  let authMock: jasmine.SpyObj<AuthService>;
-  let routerMock: jasmine.SpyObj<Router>;
+  let authMock: {
+    isAuthenticated: ReturnType<typeof vi.fn>;
+    isAdmin: ReturnType<typeof vi.fn>;
+  };
+
+  let routerMock: {
+    createUrlTree: ReturnType<typeof vi.fn>;
+  };
 
   beforeEach(() => {
-    authMock = jasmine.createSpyObj<AuthService>('AuthService', ['isAuthenticated', 'isAdmin']);
-    routerMock = jasmine.createSpyObj<Router>('Router', ['createUrlTree']);
+    authMock = {
+      isAuthenticated: vi.fn(),
+      isAdmin: vi.fn(),
+    };
+
+    routerMock = {
+      createUrlTree: vi.fn(),
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -22,8 +36,8 @@ describe('adminGuard', () => {
   it('redirects guest users to login', () => {
     const tree = {} as UrlTree;
 
-    authMock.isAuthenticated.and.returnValue(false);
-    routerMock.createUrlTree.and.returnValue(tree);
+    authMock.isAuthenticated.mockReturnValue(false);
+    routerMock.createUrlTree.mockReturnValue(tree);
 
     const result = TestBed.runInInjectionContext(() =>
       adminGuard({} as any, { url: '/admin' } as any)
@@ -38,9 +52,9 @@ describe('adminGuard', () => {
   it('redirects non-admin users to home', () => {
     const tree = {} as UrlTree;
 
-    authMock.isAuthenticated.and.returnValue(true);
-    authMock.isAdmin.and.returnValue(false);
-    routerMock.createUrlTree.and.returnValue(tree);
+    authMock.isAuthenticated.mockReturnValue(true);
+    authMock.isAdmin.mockReturnValue(false);
+    routerMock.createUrlTree.mockReturnValue(tree);
 
     const result = TestBed.runInInjectionContext(() =>
       adminGuard({} as any, { url: '/admin' } as any)
@@ -51,8 +65,8 @@ describe('adminGuard', () => {
   });
 
   it('allows admin users', () => {
-    authMock.isAuthenticated.and.returnValue(true);
-    authMock.isAdmin.and.returnValue(true);
+    authMock.isAuthenticated.mockReturnValue(true);
+    authMock.isAdmin.mockReturnValue(true);
 
     const result = TestBed.runInInjectionContext(() =>
       adminGuard({} as any, { url: '/admin' } as any)

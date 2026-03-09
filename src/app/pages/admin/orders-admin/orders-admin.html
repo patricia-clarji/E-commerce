@@ -1,63 +1,63 @@
 <section class="glass-soft panel">
-    <div class="panel__title">Orders</div>
-    <div class="panel__sub">Orders created from real checkout are listed here.</div>
+  <div class="panel__title">Orders</div>
+  <div class="panel__sub">Orders created from real checkout are listed here.</div>
 
-    <div class="stats">
-        <div class="mini-stat">
-            <div class="muted">Paid</div>
-            <div class="strong">{{ paidCount() }}</div>
-        </div>
-        <div class="mini-stat">
-            <div class="muted">Pending</div>
-            <div class="strong">{{ pendingCount() }}</div>
-        </div>
-        <div class="mini-stat">
-            <div class="muted">Cancelled</div>
-            <div class="strong">{{ cancelledCount() }}</div>
-        </div>
-        <div class="mini-stat">
-            <div class="muted">Revenue</div>
-            <div class="strong">${{ revenue() | number : '1.2-2' }}</div>
-        </div>
+  <div class="stats">
+    <div class="mini-stat">
+      <div class="muted">Paid</div>
+      <div class="strong">{{ paidCount() }}</div>
+    </div>
+    <div class="mini-stat">
+      <div class="muted">Pending</div>
+      <div class="strong">{{ pendingCount() }}</div>
+    </div>
+    <div class="mini-stat">
+      <div class="muted">Cancelled</div>
+      <div class="strong">{{ cancelledCount() }}</div>
+    </div>
+    <div class="mini-stat">
+      <div class="muted">Revenue</div>
+      <div class="strong">${{ revenue() | number : '1.2-2' }}</div>
+    </div>
+  </div>
+
+  <div class="hint glass-soft" *ngIf="sortedOrders().length === 0" style="margin-top: 14px">
+    No orders yet. Place an order from checkout and it will appear here.
+  </div>
+
+  <div class="table" *ngIf="sortedOrders().length > 0">
+    <div class="row head">
+      <div>ID</div>
+      <div>Customer</div>
+      <div>Status</div>
+      <div>Total</div>
+      <div>Actions</div>
     </div>
 
-    <div class="hint glass-soft" *ngIf="sortedOrders().length === 0" style="margin-top: 14px;">
-        No orders yet. Place an order from checkout and it will appear here.
-    </div>
+    <div class="row" *ngFor="let o of sortedOrders()">
+      <div class="mono">{{ o.id }}</div>
 
-    <div class="table" *ngIf="sortedOrders().length > 0">
-        <div class="row head">
-            <div>ID</div>
-            <div>Customer</div>
-            <div>Status</div>
-            <div>Total</div>
-            <div>Actions</div>
+      <div>
+        <div class="strong">{{ o.customer }}</div>
+        <div class="muted">{{ o.email }}</div>
+        <div class="muted">{{ itemsCount(o) }} item(s) • {{ o.date | date:'mediumDate' }}</div>
+        <div class="muted" *ngIf="o.city || o.phone">
+          {{ o.city || 'Unknown city' }} • {{ o.phone || 'No phone' }}
         </div>
+      </div>
 
-        <div class="row" *ngFor="let o of sortedOrders()">
-            <div class="mono">{{ o.id }}</div>
+      <div>
+        <span class="pill" [attr.data-status]="o.status">{{ o.status }}</span>
+      </div>
 
-            <div>
-                <div class="strong">{{ o.customer }}</div>
-                <div class="muted">{{ o.email }}</div>
-                <div class="muted">{{ itemsCount(o) }} item(s) • {{ o.date | date:'mediumDate' }}</div>
-                <div class="muted" *ngIf="o.city || o.phone">
-                    {{ o.city || 'Unknown city' }} • {{ o.phone || 'No phone' }}
-                </div>
-            </div>
+      <div class="strong">${{ o.total | number : '1.2-2' }}</div>
 
-            <div>
-                <span class="pill" [attr.data-status]="o.status">{{ o.status }}</span>
-            </div>
-
-            <div class="strong">${{ o.total | number : '1.2-2' }}</div>
-
-            <div class="actions">
-                <button class="btn-ghost" (click)="setStatus(o.id, 'Pending')">Pending</button>
-                <button class="btn-ghost" (click)="setStatus(o.id, 'Paid')">Paid</button>
-                <button class="btn-ghost" (click)="setStatus(o.id, 'Completed')">Completed</button>
-                <button class="btn-danger" (click)="setStatus(o.id, 'Cancelled')">Cancel</button>
-            </div>
-        </div>
+      <div class="actions">
+        <button class="btn-ghost" (click)="setStatus(o.id, 'Pending')">Pending</button>
+        <button class="btn-ghost" (click)="setStatus(o.id, 'Paid')">Paid</button>
+        <button class="btn-ghost" (click)="setStatus(o.id, 'Completed')">Completed</button>
+        <button class="btn-danger" (click)="setStatus(o.id, 'Cancelled')">Cancel</button>
+      </div>
     </div>
+  </div>
 </section>

@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { vi } from 'vitest';
+
 import { ProductCard } from './product-card';
 import { CartService } from '../../services/cart';
 import { ToastService } from '../../services/toast';
@@ -11,14 +14,14 @@ describe('ProductCard', () => {
 
   const mockCart = {
     items: signal([]),
-    add: jasmine.createSpy('add'),
-    setQty: jasmine.createSpy('setQty'),
-    remove: jasmine.createSpy('remove'),
+    add: vi.fn(),
+    setQty: vi.fn(),
+    remove: vi.fn(),
   };
 
   const mockToast = {
-    success: jasmine.createSpy('success'),
-    info: jasmine.createSpy('info'),
+    success: vi.fn(),
+    info: vi.fn(),
   };
 
   const mockAuth = {
@@ -42,6 +45,7 @@ describe('ProductCard', () => {
     await TestBed.configureTestingModule({
       imports: [ProductCard],
       providers: [
+        provideRouter([]),
         { provide: CartService, useValue: mockCart },
         { provide: ToastService, useValue: mockToast },
         { provide: AuthService, useValue: mockAuth },

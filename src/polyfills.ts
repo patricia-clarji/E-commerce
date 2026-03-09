@@ -1,2 +1,2 @@
-import 'zone.js'
-export { };
+import 'zone.js';
+export {};

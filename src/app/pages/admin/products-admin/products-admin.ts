@@ -30,10 +30,11 @@ export class ProductsAdmin {
     const q = this.search().trim().toLowerCase();
     if (!q) return this.items();
 
-    return this.items().filter((p) =>
-      p.name.toLowerCase().includes(q) ||
-      p.brand.toLowerCase().includes(q) ||
-      p.category.toLowerCase().includes(q)
+    return this.items().filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q)
     );
   });
 
@@ -98,7 +99,10 @@ export class ProductsAdmin {
       category: v.category,
       price: Number(v.price),
       stock: Number(v.stock),
-      images: v.images.split(',').map((s) => s.trim()).filter(Boolean),
+      images: v.images
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean),
       shortDescription: v.shortDescription.trim(),
       description: v.description.trim(),
       rating: Number(v.rating ?? 0),

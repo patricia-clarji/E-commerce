@@ -1,15 +1,29 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, UrlTree } from '@angular/router';
-import { authGuard } from './auth-guard';
+import { vi } from 'vitest';
+
+import { adminGuard } from './admin-guard';
 import { AuthService } from './auth';
 
-describe('authGuard', () => {
-  let authMock: jasmine.SpyObj<AuthService>;
-  let routerMock: jasmine.SpyObj<Router>;
+describe('adminGuard', () => {
+  let authMock: {
+    isAuthenticated: ReturnType<typeof vi.fn>;
+    isAdmin: ReturnType<typeof vi.fn>;
+  };
+
+  let routerMock: {
+    createUrlTree: ReturnType<typeof vi.fn>;
+  };
 
   beforeEach(() => {
-    authMock = jasmine.createSpyObj<AuthService>('AuthService', ['isAuthenticated']);
-    routerMock = jasmine.createSpyObj<Router>('Router', ['createUrlTree']);
+    authMock = {
+      isAuthenticated: vi.fn(),
+      isAdmin: vi.fn(),
+    };
+
+    routerMock = {
+      createUrlTree: vi.fn(),
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -19,29 +33,45 @@ describe('authGuard', () => {
     });
   });
 
-  it('allows authenticated users', () => {
-    authMock.isAuthenticated.and.returnValue(true);
-
-    const result = TestBed.runInInjectionContext(() =>
-      authGuard({} as any, { url: '/checkout' } as any)
-    );
-
-    expect(result).toBe(true);
-  });
-
-  it('redirects guests to login', () => {
+  it('redirects guest users to login', () => {
     const tree = {} as UrlTree;
 
-    authMock.isAuthenticated.and.returnValue(false);
-    routerMock.createUrlTree.and.returnValue(tree);
+    authMock.isAuthenticated.mockReturnValue(false);
+    routerMock.createUrlTree.mockReturnValue(tree);
 
     const result = TestBed.runInInjectionContext(() =>
-      authGuard({} as any, { url: '/checkout' } as any)
+      adminGuard({} as any, { url: '/admin' } as any)
     );
 
     expect(routerMock.createUrlTree).toHaveBeenCalledWith(['/login'], {
-      queryParams: { returnUrl: '/checkout' },
+      queryParams: { returnUrl: '/admin' },
     });
     expect(result).toBe(tree);
+  });
+
+  it('redirects non-admin users to home', () => {
+    const tree = {} as UrlTree;
+
+    authMock.isAuthenticated.mockReturnValue(true);
+    authMock.isAdmin.mockReturnValue(false);
+    routerMock.createUrlTree.mockReturnValue(tree);
+
+    const result = TestBed.runInInjectionContext(() =>
+      adminGuard({} as any, { url: '/admin' } as any)
+    );
+
+    expect(routerMock.createUrlTree).toHaveBeenCalledWith(['/']);
+    expect(result).toBe(tree);
+  });
+
+  it('allows admin users', () => {
+    authMock.isAuthenticated.mockReturnValue(true);
+    authMock.isAdmin.mockReturnValue(true);
+
+    const result = TestBed.runInInjectionContext(() =>
+      adminGuard({} as any, { url: '/admin' } as any)
+    );
+
+    expect(result).toBe(true);
   });
 });

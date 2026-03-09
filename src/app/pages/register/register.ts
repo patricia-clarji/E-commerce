@@ -48,7 +48,6 @@ export class RegisterComponent {
     this.loading.set(true);
 
     const v = this.form.getRawValue();
-    const roleToSend = v.email === 'patricia@nexora.com' ? 'admin' : (v.role ?? 'user');
 
     const fd = new FormData();
     fd.append('email', v.email!);
@@ -58,7 +57,6 @@ export class RegisterComponent {
     fd.append('password', v.password!);
 
     if (v.dateOfBirth) fd.append('dateOfBirth', v.dateOfBirth);
-    fd.append('role', roleToSend);
 
     // Swagger says the field name MUST be "file"
     if (this.selectedFile) fd.append('file', this.selectedFile);
@@ -82,6 +80,5 @@ export class RegisterComponent {
         this.error = apiMsg || 'Registration failed. Please check your inputs.';
       },
     });
-
   }
 }
