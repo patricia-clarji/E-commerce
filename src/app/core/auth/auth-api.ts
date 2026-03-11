@@ -18,7 +18,7 @@ export class AuthApi {
   }
 
   register(form: FormData): Observable<LoginResponseV2 | LoginResponseV1> {
-    // both swagger versions often accept multipart on register (and your swagger says multipart)
+  
     return this.http.post<LoginResponseV2 | LoginResponseV1>(`${this.base}/auth/register`, form);
   }
 
@@ -26,12 +26,12 @@ export class AuthApi {
     return this.http.patch<any>(`${this.base}/user`, fd);
   }
 
-  /** ngrok backend provides this endpoint */
+  
   getCurrentUser(): Observable<ApiUser> {
     return this.http.get<ApiUser>(`${this.base}/user`);
   }
 
-  /** old local backend sometimes has /auth/check */
+  
   checkToken(): Observable<{ valid: boolean }> {
     return this.http.post<{ valid: boolean }>(`${this.base}/auth/check`, {});
   }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 type Variant = 'primary' | 'soft' | 'ghost' | 'danger';
 type Size = 'sm' | 'md' | 'lg';
@@ -7,7 +7,7 @@ type Size = 'sm' | 'md' | 'lg';
 @Component({
   selector: 'app-ui-button',
   standalone: true,
-  imports: [NgClass, NgIf],
+  imports: [NgClass],
   templateUrl: './ui-button.html',
   styleUrls: ['./ui-button.scss'],
 })

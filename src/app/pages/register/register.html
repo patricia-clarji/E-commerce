@@ -3,7 +3,7 @@
     <div class="title">Create account</div>
     <div class="sub">Join Nexora and start shopping.</div>
 
-    <!-- ✅ MUST have [formGroup] -->
+    <!-- formGroup -->
     <form class="form" [formGroup]="form" (ngSubmit)="submit()">
       <div class="grid2">
         <div>
@@ -47,7 +47,9 @@
         <input class="input" type="file" (change)="onFile($event)" />
       </div>
 
-      <div class="err" *ngIf="error">{{ error }}</div>
+      @if (error) {
+        <div class="err">{{ error }}</div>
+      }
 
       <button class="btn-primary" type="submit" [disabled]="loading()">
         {{ loading() ? 'Creating...' : 'Create account' }}

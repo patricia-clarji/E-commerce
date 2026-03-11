@@ -1,5 +1,6 @@
 <div class="container-page">
   <section class="admin-shell glass">
+
     <div class="admin-top">
       <div>
         <div class="admin-title">Admin Panel</div>
@@ -7,12 +8,16 @@
       </div>
 
       <div class="admin-actions">
-        <div class="admin-user glass-soft" *ngIf="user() as u">
-          <div class="admin-user__name">{{ u.firstName }} {{ u.lastName }}</div>
-          <div class="admin-user__meta">{{ u.email }}</div>
-        </div>
+
+        @if (user(); as u) {
+          <div class="admin-user glass-soft">
+            <div class="admin-user__name">{{ u.firstName }} {{ u.lastName }}</div>
+            <div class="admin-user__meta">{{ u.email }}</div>
+          </div>
+        }
 
         <a class="btn-ghost" routerLink="/">Back to Store</a>
+
       </div>
     </div>
 
@@ -25,5 +30,6 @@
     <div class="admin-body">
       <router-outlet></router-outlet>
     </div>
+
   </section>
 </div>

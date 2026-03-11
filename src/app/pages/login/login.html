@@ -3,14 +3,13 @@
     <div class="title">Login</div>
     <div class="sub">Use your email and password to continue.</div>
 
-    <!-- ✅ MUST have [formGroup] -->
     <form class="form" [formGroup]="form" (ngSubmit)="submit()">
       <div>
         <label class="label">Email</label>
         <input class="input" type="email" formControlName="email" autocomplete="email" />
-        <div class="err" *ngIf="form.controls.email.touched && form.controls.email.invalid">
-          Please enter a valid email.
-        </div>
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <div class="err">Please enter a valid email.</div>
+        }
       </div>
 
       <div>
@@ -21,12 +20,14 @@
           formControlName="password"
           autocomplete="current-password"
         />
-        <div class="err" *ngIf="form.controls.password.touched && form.controls.password.invalid">
-          Password is required (min 6 chars).
-        </div>
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <div class="err">Password is required (min 6 chars).</div>
+        }
       </div>
 
-      <div class="err" *ngIf="error">{{ error }}</div>
+      @if (error) {
+        <div class="err">{{ error }}</div>
+      }
 
       <button class="btn-primary" type="submit" [disabled]="loading()">
         {{ loading() ? 'Logging in...' : 'Login' }}

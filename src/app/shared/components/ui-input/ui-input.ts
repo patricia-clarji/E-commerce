@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-ui-input',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule],
   templateUrl: './ui-input.html',
   styleUrls: ['./ui-input.scss'],
 })

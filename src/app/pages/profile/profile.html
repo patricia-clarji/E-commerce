@@ -3,17 +3,19 @@
     <div class="title">Profile</div>
     <div class="sub">Update your account information.</div>
 
-    <div class="me glass-soft" *ngIf="user() as u">
-      <img
-        class="avatar"
-        [src]="u.imageUrl || 'https://api.dicebear.com/7.x/initials/svg?seed=' + (u.firstName || 'U')"
-        alt="avatar"
-      />
-      <div>
-        <div class="strong">{{ u.firstName }} {{ u.lastName }}</div>
-        <div class="muted">{{ u.email }} • {{ u.role }}</div>
+    @if (user(); as u) {
+      <div class="me glass-soft">
+        <img
+          class="avatar"
+          [src]="u.imageUrl || 'https://api.dicebear.com/7.x/initials/svg?seed=' + (u.firstName || 'U')"
+          alt="avatar"
+        />
+        <div>
+          <div class="strong">{{ u.firstName }} {{ u.lastName }}</div>
+          <div class="muted">{{ u.email }} • {{ u.role }}</div>
+        </div>
       </div>
-    </div>
+    }
 
     <form class="form" [formGroup]="form" (ngSubmit)="save()">
       <div class="grid2">
@@ -48,7 +50,9 @@
         <input class="input" type="file" (change)="onFile($event)" />
       </div>
 
-      <div class="err" *ngIf="error">{{ error }}</div>
+      @if (error) {
+        <div class="err">{{ error }}</div>
+      }
 
       <button class="btn-primary" type="submit">Save changes</button>
     </form>

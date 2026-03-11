@@ -23,22 +23,28 @@
       <div class="form-top">
         <div class="title-sm">{{ editingId() ? 'Edit product' : 'Create product' }}</div>
 
-        <button *ngIf="editingId()" class="btn-ghost" type="button" (click)="cancelEdit()">
-          Cancel edit
-        </button>
+        @if (editingId()) {
+          <button class="btn-ghost" type="button" (click)="cancelEdit()">
+            Cancel edit
+          </button>
+        }
       </div>
 
       <div class="grid2">
         <div>
           <label class="label">Name</label>
           <input class="input" formControlName="name" />
-          <div class="err" *ngIf="fieldError('name')">Name must be at least 2 characters.</div>
+          @if (fieldError('name')) {
+            <div class="err">Name must be at least 2 characters.</div>
+          }
         </div>
 
         <div>
           <label class="label">Brand</label>
           <input class="input" formControlName="brand" />
-          <div class="err" *ngIf="fieldError('brand')">Brand must be at least 2 characters.</div>
+          @if (fieldError('brand')) {
+            <div class="err">Brand must be at least 2 characters.</div>
+          }
         </div>
       </div>
 
@@ -46,14 +52,18 @@
         <div>
           <label class="label">Category</label>
           <select class="input" formControlName="category">
-            <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+            @for (c of categories; track c) {
+              <option [value]="c">{{ c }}</option>
+            }
           </select>
         </div>
 
         <div>
           <label class="label">Images (comma separated URLs)</label>
           <input class="input" formControlName="images" />
-          <div class="err" *ngIf="fieldError('images')">At least one image URL is required.</div>
+          @if (fieldError('images')) {
+            <div class="err">At least one image URL is required.</div>
+          }
         </div>
       </div>
 
@@ -84,17 +94,17 @@
       <div>
         <label class="label">Short description</label>
         <input class="input" formControlName="shortDescription" />
-        <div class="err" *ngIf="fieldError('shortDescription')">
-          Short description must be at least 10 characters.
-        </div>
+        @if (fieldError('shortDescription')) {
+          <div class="err">Short description must be at least 10 characters.</div>
+        }
       </div>
 
       <div>
         <label class="label">Description</label>
         <textarea class="input" rows="4" formControlName="description"></textarea>
-        <div class="err" *ngIf="fieldError('description')">
-          Description must be at least 20 characters.
-        </div>
+        @if (fieldError('description')) {
+          <div class="err">Description must be at least 20 characters.</div>
+        }
       </div>
 
       <button class="btn-primary" type="submit">
@@ -107,22 +117,24 @@
     </div>
 
     <div class="list">
-      <div class="row glass-soft" *ngFor="let p of filteredItems()">
-        <div class="rleft">
-          <img class="img" [src]="p.images[0]" [alt]="p.name" />
+      @for (p of filteredItems(); track p.id) {
+        <div class="row glass-soft">
+          <div class="rleft">
+            <img class="img" [src]="p.images[0]" [alt]="p.name" />
 
-          <div>
-            <div class="name">{{ p.name }}</div>
-            <div class="muted">{{ p.brand }} • {{ p.category }}</div>
-            <div class="muted">${{ p.price | number:'1.2-2' }} • stock {{ p.stock }}</div>
+            <div>
+              <div class="name">{{ p.name }}</div>
+              <div class="muted">{{ p.brand }} • {{ p.category }}</div>
+              <div class="muted">${{ p.price | number:'1.2-2' }} • stock {{ p.stock }}</div>
+            </div>
+          </div>
+
+          <div class="ractions">
+            <button class="btn-ghost" type="button" (click)="startEdit(p)">Edit</button>
+            <button class="btn-danger" type="button" (click)="remove(p.id)">Delete</button>
           </div>
         </div>
-
-        <div class="ractions">
-          <button class="btn-ghost" type="button" (click)="startEdit(p)">Edit</button>
-          <button class="btn-danger" type="button" (click)="remove(p.id)">Delete</button>
-        </div>
-      </div>
+      }
     </div>
   </section>
 </div>

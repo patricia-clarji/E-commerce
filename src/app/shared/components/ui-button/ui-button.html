@@ -8,6 +8,8 @@
   [attr.type]="type"
   [disabled]="disabled || loading"
 >
-  <span class="ub__spinner" *ngIf="loading"></span>
+  @if (loading) {
+    <span class="ub__spinner"></span>
+  }
   <ng-content></ng-content>
 </button>

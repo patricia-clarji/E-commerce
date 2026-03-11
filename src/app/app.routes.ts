@@ -1,4 +1,3 @@
-// src/app/app.routes.ts
 import { Routes } from '@angular/router';
 import { MainLayout } from './core/layout/main-layout/main-layout';
 import { authGuard } from './core/auth/auth-guard';
@@ -62,7 +61,7 @@ export const routes: Routes = [
     ],
   },
 
-  // Admin LAZY
+  // Admin LAZY loading:
   {
     path: 'admin',
     canActivate: [adminGuard],
@@ -70,6 +69,6 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/admin/admin.routes').then((m) => m.adminRoutes),
   },
 
-  // Wildcard -> not-found
+  
   { path: '**', redirectTo: 'not-found' },
 ];

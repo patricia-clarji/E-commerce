@@ -37,14 +37,13 @@ export class Header {
   readonly menuOpen = signal(false);
   readonly scrolled = signal(false);
 
-  /** Search input */
+
   readonly search = signal('');
 
-  /** Cart badge */
+  
   readonly cartCount = computed(() => this.cart.count());
 
   constructor() {
-    // ✅ Sticky header effect (browser only)
     if (this.isBrowser) {
       const onScroll = () => this.scrolled.set((window.scrollY ?? 0) > 8);
       onScroll();
@@ -52,7 +51,6 @@ export class Header {
       this.destroyRef.onDestroy(() => window.removeEventListener('scroll', onScroll));
     }
 
-    // ✅ Close menu on navigation
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe(() => this.menuOpen.set(false));
@@ -76,7 +74,6 @@ export class Header {
 
   submitSearch() {
     const q = this.search().trim();
-    // ✅ keep text, just navigate with query param
     this.router.navigate(['/products'], { queryParams: q ? { q } : {} });
     this.closeMenu();
   }

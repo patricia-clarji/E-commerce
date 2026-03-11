@@ -24,7 +24,7 @@ export const adminRoutes: Routes = [
         loadComponent: () => import('./orders-admin/orders-admin').then((m) => m.OrdersAdmin),
       },
 
-      // ✅ safety net inside admin
+      
       { path: '**', redirectTo: 'dashboard' },
     ],
   },

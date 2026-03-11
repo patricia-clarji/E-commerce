@@ -10,7 +10,7 @@ import { ProductCard } from '../../shared/components/product-card/product-card';
   standalone: true,
   imports: [CommonModule, ProductCard],
   templateUrl: './product-list.html',
-  styleUrls: ['./product-list.scss'], // ✅ FIXED (was styleUrl)
+  styleUrls: ['./product-list.scss'],
 })
 export class ProductList {
   private readonly route = inject(ActivatedRoute);
@@ -19,7 +19,7 @@ export class ProductList {
   readonly q = signal('');
   readonly category = signal<string>('All');
 
-  // normalize helper
+  
   private normalize(v: unknown): string {
     return String(v ?? '')
       .trim()
@@ -56,20 +56,20 @@ export class ProductList {
     });
   });
 
-  // safer click handler
+  
   onCategoryClick(c: string) {
     console.log('CATEGORY CLICKED:', c);
     this.category.set(c);
   }
 
   constructor() {
-    // initial query param
+
     effect(() => {
       const qp = this.route.snapshot.queryParamMap.get('q') ?? '';
       this.q.set(qp);
     });
 
-    // live updates
+    
     this.route.queryParamMap.subscribe((m) => {
       this.q.set(m.get('q') ?? '');
     });

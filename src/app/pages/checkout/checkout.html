@@ -8,26 +8,34 @@
         <div>
           <label class="label">Full name</label>
           <input class="input" type="text" formControlName="fullName" />
-          <div class="err" *ngIf="e('fullName')">Please enter your name.</div>
+          @if (e('fullName')) {
+            <div class="err">Please enter your name.</div>
+          }
         </div>
 
         <div>
           <label class="label">Address</label>
           <input class="input" type="text" formControlName="address" />
-          <div class="err" *ngIf="e('address')">Please enter an address.</div>
+          @if (e('address')) {
+            <div class="err">Please enter an address.</div>
+          }
         </div>
 
         <div class="grid2">
           <div>
             <label class="label">City</label>
             <input class="input" type="text" formControlName="city" />
-            <div class="err" *ngIf="e('city')">City is required.</div>
+            @if (e('city')) {
+              <div class="err">City is required.</div>
+            }
           </div>
 
           <div>
             <label class="label">Phone</label>
             <input class="input" type="tel" formControlName="phone" />
-            <div class="err" *ngIf="e('phone')">Phone is required.</div>
+            @if (e('phone')) {
+              <div class="err">Phone is required.</div>
+            }
           </div>
         </div>
 

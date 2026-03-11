@@ -13,13 +13,13 @@ export interface ApiUser {
   updatedAt?: string;
 }
 
-/** New ngrok backend format */
+
 export interface LoginResponseV2 {
   token: string;
   user: ApiUser;
 }
 
-/** Old local backend format (Ali message) */
+
 export interface LoginResponseV1 {
   Login: {
     AccessToken: string;
@@ -33,7 +33,7 @@ export interface LoginResponseV1 {
   };
 }
 
-/** Shared: what our frontend wants internally */
+
 export interface NormalizedAuth {
   accessToken: string;
   refreshToken?: string;
